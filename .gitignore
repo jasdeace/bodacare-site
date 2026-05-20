@@ -1,0 +1,19 @@
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# OS
+.DS_Store
+ehthumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Optional dev server caches
+.cache/
+.tmp/

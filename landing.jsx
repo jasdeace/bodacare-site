@@ -1,0 +1,447 @@
+/* global React, CLMark, CLHeaderLogo, HomeA, MetricsScreen, AIScreen, MedicineEditScreen, ProfileScreen, Ico */
+// bodacare — marketing landing page sections
+
+// ─────────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────────
+function MiniPhone({ children, scale = 1, width = 360, height = 760 }) {
+  // Inner: actual phone frame at 360×760
+  return (
+    <div style={{
+      width: width * scale,
+      height: height * scale,
+      position: 'relative',
+    }}>
+      <div style={{
+        width, height,
+        background: 'var(--cream-50)',
+        borderRadius: 38,
+        border: '8px solid #0F2C2E',
+        boxShadow: '0 30px 60px -20px rgba(15,44,46,0.32), 0 0 0 1px rgba(15,44,46,0.05)',
+        overflow: 'hidden',
+        position: 'absolute',
+        top: 0, left: 0,
+        transform: `scale(${scale})`,
+        transformOrigin: 'top left',
+      }}>
+        <div style={{
+          position: 'absolute', top: 10, left: '50%', transform: 'translateX(-50%)',
+          width: 90, height: 26, borderRadius: 999, background: '#0F2C2E', zIndex: 50,
+        }}/>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Nav
+// ─────────────────────────────────────────────────────────────
+function LandingNav() {
+  const [scrolled, setScrolled] = React.useState(false);
+  React.useEffect(() => {
+    const root = document.querySelector('.bd-page') || window;
+    const target = root === window ? window : root;
+    const handler = () => {
+      const y = target === window ? window.scrollY : target.scrollTop;
+      setScrolled(y > 8);
+    };
+    target.addEventListener('scroll', handler, { passive: true });
+    return () => target.removeEventListener('scroll', handler);
+  }, []);
+  return (
+    <nav className={`bd-nav${scrolled ? ' bd-nav--scrolled' : ''}`}>
+      <div className="bd-nav-inner">
+        <a href="#" className="bd-logo">
+          <CLMark size={28} />
+          <span>bodacare</span>
+        </a>
+        <div className="bd-nav-links">
+          <a href="#features">제품</a>
+          <a href="#ai">AI 도우미</a>
+          <a href="#care">케어그룹</a>
+          <a href="#how">사용법</a>
+        </div>
+        <div className="bd-nav-cta">
+          <a href="#download" className="bd-btn bd-btn--ghost bd-hide-mobile">로그인</a>
+          <a href="#download" className="bd-btn bd-btn--primary">앱 다운로드</a>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Hero
+// ─────────────────────────────────────────────────────────────
+function Hero() {
+  return (
+    <section className="bd-hero">
+      <div className="bd-hero-inner">
+        <div className="bd-hero-text">
+          <div className="bd-eyebrow">
+            <span className="bd-eyebrow-dot"/>
+            매일의 건강을 가족과 함께
+          </div>
+          <h1 className="bd-h1">
+            약 챙기기, <br/>
+            이제 <span className="bd-h1-accent">잊지 않아요</span>
+          </h1>
+          <p className="bd-lead">
+            복약 알림부터 혈압·혈당 기록, AI 검사 분석까지.<br className="bd-hide-mobile"/>
+            매일의 건강을 한 곳에서 관리하고, 가족과 함께 챙기세요.
+          </p>
+          <div className="bd-cta-row">
+            <a href="#" className="bd-store bd-store--ios">
+              <svg width="22" height="26" viewBox="0 0 22 26" fill="currentColor"><path d="M17.3 13.7c0-3.3 2.7-4.9 2.8-5-1.5-2.3-3.9-2.6-4.8-2.6-2-.2-3.9 1.2-5 1.2-1.1 0-2.7-1.2-4.4-1.1-2.3 0-4.4 1.3-5.5 3.4-2.4 4.1-.6 10.2 1.7 13.5 1.1 1.6 2.5 3.4 4.2 3.4 1.7-.1 2.4-1.1 4.4-1.1 2 0 2.6 1.1 4.4 1.1 1.8 0 3-1.6 4.1-3.3 1.3-1.9 1.8-3.7 1.9-3.8-.1-.1-3.7-1.4-3.8-5.7zM14 4c.9-1.1 1.5-2.7 1.3-4.2-1.3.1-2.9.9-3.8 2-.8 1-1.6 2.6-1.4 4 1.5.1 3-.7 3.9-1.8z"/></svg>
+              <div className="bd-store-inner">
+                <span className="bd-store-top">Download on the</span>
+                <span className="bd-store-bot">App Store</span>
+              </div>
+            </a>
+            <a href="#" className="bd-store bd-store--google">
+              <svg width="24" height="26" viewBox="0 0 24 26" fill="none"><path d="M1 1.7v22.6c0 .7.4 1.3 1 1.5L13.6 13 1 1.7z" fill="#5BC9F4"/><path d="M17.6 9.5L14.5 11.6 2.1 1l-.1.1L13.6 13l4 4-3-3 3 3 3.1-2.1c1.4-.8 1.4-2.7 0-3.4z" fill="#FBC02D"/><path d="M14.5 11.6L2 1l-.4.2 12 12 .9-.6z" fill="#E53935"/><path d="M14.5 14.4l-.9-.6L1.7 25.7l.4.2L14.5 14.4z" fill="#4CAF50"/></svg>
+              <div className="bd-store-inner">
+                <span className="bd-store-top">GET IT ON</span>
+                <span className="bd-store-bot">Google Play</span>
+              </div>
+            </a>
+          </div>
+          <div className="bd-hero-meta">
+            <Pulse /> 평균 12분 만에 첫 약 등록 완료
+          </div>
+        </div>
+
+        <div className="bd-hero-visual">
+          <div className="bd-hero-glow"/>
+          <div className="bd-hero-phones">
+            <div className="bd-hero-phone bd-hero-phone--back">
+              <MiniPhone scale={0.78}><MetricsScreen /></MiniPhone>
+            </div>
+            <div className="bd-hero-phone bd-hero-phone--front">
+              <MiniPhone scale={0.88}><HomeA /></MiniPhone>
+            </div>
+            {/* Floating chips */}
+            <div className="bd-chip bd-chip--1">
+              <span className="bd-chip-dot bd-chip-dot--teal"/>
+              <span>09:00 복약 알림</span>
+            </div>
+            <div className="bd-chip bd-chip--2">
+              <span className="bd-chip-dot bd-chip-dot--coral"/>
+              <span>가족이 복용 확인</span>
+            </div>
+            <div className="bd-chip bd-chip--3">
+              <span className="bd-chip-dot bd-chip-dot--rose"/>
+              <span>혈압 120/80</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Pulse() {
+  return (
+    <span style={{ position: 'relative', display: 'inline-block', width: 8, height: 8, marginRight: 6 }}>
+      <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--teal-500)', opacity: 0.4, animation: 'bdPulse 1.6s ease-out infinite' }}/>
+      <span style={{ position: 'absolute', top: 2, left: 2, width: 4, height: 4, borderRadius: '50%', background: 'var(--teal-700)' }}/>
+    </span>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Problem section
+// ─────────────────────────────────────────────────────────────
+function Problems() {
+  const items = [
+    { kicker: '01', q: '오늘 약 먹었나?', a: '하루에도 몇 번씩, 기억을 더듬게 되는 순간들.' },
+    { kicker: '02', q: '부모님은 잘 챙기시나?', a: '멀리 계신 가족의 복약을 확인하고 싶을 때.' },
+    { kicker: '03', q: '이 검사 수치, 괜찮은 건가?', a: '병원에서 받아온 결과지 앞에서 막막한 순간.' },
+  ];
+  return (
+    <section className="bd-problems">
+      <div className="bd-section-inner">
+        <div className="bd-section-head">
+          <span className="bd-kicker">왜 bodacare인가요</span>
+          <h2 className="bd-h2">매일 마주하는<br/><em>작은 불안</em>들</h2>
+        </div>
+        <div className="bd-prob-grid">
+          {items.map((it) => (
+            <div key={it.kicker} className="bd-prob-card">
+              <span className="bd-prob-num">{it.kicker}</span>
+              <h3 className="bd-prob-q">"{it.q}"</h3>
+              <p className="bd-prob-a">{it.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Features bento
+// ─────────────────────────────────────────────────────────────
+function Features() {
+  return (
+    <section id="features" className="bd-features">
+      <div className="bd-section-inner">
+        <div className="bd-section-head bd-section-head--center">
+          <span className="bd-kicker">기능</span>
+          <h2 className="bd-h2">하나의 앱,<br/><em>온전한 케어</em></h2>
+          <p className="bd-section-lead">
+            복약 관리 · 건강 수치 · AI 분석 · 가족 공유까지.<br className="bd-hide-mobile"/>
+            건강을 챙기는 모든 순간을 부드럽게 잇습니다.
+          </p>
+        </div>
+
+        <div className="bd-bento">
+          {/* Big: medication */}
+          <div className="bd-bento-card bd-bento-card--lg" style={{ background: 'var(--paper)' }}>
+            <div className="bd-bento-text">
+              <span className="bd-feat-tag" style={{ background: 'var(--teal-100)', color: 'var(--teal-800)' }}>
+                <Ico.pill /> 복약 관리
+              </span>
+              <h3 className="bd-h3">복용 시간이 되면<br/>부드럽게 알려드려요</h3>
+              <p className="bd-feat-desc">
+                여러 약, 여러 시간대를 한 번에 관리. 복용을 미루거나 건너뛴 약은 한눈에 확인할 수 있어요.
+              </p>
+              <ul className="bd-feat-list">
+                <li><Check /> 약별 시간대 설정</li>
+                <li><Check /> "지금 복용" 한 번에 기록</li>
+                <li><Check /> 주간·월간 복용률 그래프</li>
+              </ul>
+            </div>
+            <div className="bd-bento-visual">
+              <MiniPhone scale={0.66}><HomeA /></MiniPhone>
+            </div>
+          </div>
+
+          {/* AI */}
+          <div id="ai" className="bd-bento-card bd-bento-card--ai" style={{ background: 'linear-gradient(160deg, #0E5C5A, #0F766E)' }}>
+            <div className="bd-bento-text bd-bento-text--dark">
+              <span className="bd-feat-tag" style={{ background: 'rgba(255,255,255,0.15)', color: 'white' }}>
+                <Ico.spark /> AI 건강 도우미
+              </span>
+              <h3 className="bd-h3">검사 결과를<br/>대화로 이해해요</h3>
+              <p className="bd-feat-desc" style={{ color: 'rgba(255,255,255,0.78)' }}>
+                건강검진 결과지를 사진으로 올리면 AI가 수치 하나하나를 쉽게 설명해 드려요. 궁금한 점은 바로 질문해 보세요.
+              </p>
+            </div>
+            <div className="bd-bento-visual">
+              <MiniPhone scale={0.62}><AIScreen /></MiniPhone>
+            </div>
+          </div>
+
+          {/* Vitals */}
+          <div className="bd-bento-card" style={{ background: 'var(--paper)' }}>
+            <div className="bd-bento-text">
+              <span className="bd-feat-tag" style={{ background: 'var(--rose-100)', color: '#A24652' }}>
+                <Ico.pulse /> 건강 수치
+              </span>
+              <h3 className="bd-h3">혈압·혈당·체중,<br/>한 곳에서 기록</h3>
+              <p className="bd-feat-desc">
+                간단한 입력만으로 그래프와 추세선이 그려져요. 정상 범위에서 벗어나면 부드럽게 알려드려요.
+              </p>
+            </div>
+            <div className="bd-bento-visual bd-bento-visual--small">
+              <MiniPhone scale={0.55}><MetricsScreen /></MiniPhone>
+            </div>
+          </div>
+
+          {/* Prescription scan */}
+          <div className="bd-bento-card" style={{ background: 'var(--cream-100)' }}>
+            <div className="bd-bento-text">
+              <span className="bd-feat-tag" style={{ background: 'var(--coral-100)', color: '#A85A45' }}>
+                <Ico.cam /> 처방전 스캔
+              </span>
+              <h3 className="bd-h3">사진 한 장으로<br/>약 정보 자동 입력</h3>
+              <p className="bd-feat-desc">
+                처방전을 카메라로 찍기만 하면 약 이름, 용량, 복용 시간까지 알아서 채워 넣어요.
+              </p>
+            </div>
+            <div className="bd-bento-visual bd-bento-visual--small">
+              <MiniPhone scale={0.55}><MedicineEditScreen /></MiniPhone>
+            </div>
+          </div>
+
+          {/* Family */}
+          <div id="care" className="bd-bento-card bd-bento-card--family" style={{ background: 'var(--paper)' }}>
+            <div className="bd-bento-text">
+              <span className="bd-feat-tag" style={{ background: 'var(--sand-100)', color: 'var(--warn-500)' }}>
+                <Ico.share /> 케어 그룹
+              </span>
+              <h3 className="bd-h3">멀리 있어도<br/>함께 챙겨요</h3>
+              <p className="bd-feat-desc">
+                부모님·자녀의 복약 현황을 가족이 함께 볼 수 있어요. 약을 빠뜨린 날엔 가벼운 알림으로 챙겨드려요.
+              </p>
+              <div className="bd-care-avatars">
+                <div className="bd-avatar" style={{ background: 'var(--teal-700)' }}>장</div>
+                <div className="bd-avatar" style={{ background: 'var(--coral-500)' }}>아</div>
+                <div className="bd-avatar" style={{ background: 'var(--sand-500)' }}>딸</div>
+                <div className="bd-avatar bd-avatar--plus">+1</div>
+              </div>
+            </div>
+            <div className="bd-bento-visual">
+              <MiniPhone scale={0.62}><ProfileScreen /></MiniPhone>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Check() {
+  return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}><circle cx="12" cy="12" r="10" fill="var(--teal-100)"/><path d="M7.5 12.5l3 3 6-7" stroke="var(--teal-700)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+}
+
+// ─────────────────────────────────────────────────────────────
+// How it works
+// ─────────────────────────────────────────────────────────────
+function HowItWorks() {
+  const steps = [
+    { n: '01', title: '앱을 받고 가입', desc: '30초면 충분해요. 이름과 생년월일만 알려주세요.' },
+    { n: '02', title: '약과 측정값 등록', desc: '처방전을 사진으로 찍거나, 직접 입력하세요.' },
+    { n: '03', title: '매일 부드럽게 챙김', desc: '알림이 오면 한 번에 기록. 가족과 함께 보세요.' },
+  ];
+  return (
+    <section id="how" className="bd-how">
+      <div className="bd-section-inner">
+        <div className="bd-section-head bd-section-head--center">
+          <span className="bd-kicker">사용법</span>
+          <h2 className="bd-h2">3단계로 시작</h2>
+        </div>
+        <ol className="bd-steps">
+          {steps.map((s) => (
+            <li key={s.n} className="bd-step">
+              <span className="bd-step-num">{s.n}</span>
+              <h3 className="bd-step-title">{s.title}</h3>
+              <p className="bd-step-desc">{s.desc}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Final CTA
+// ─────────────────────────────────────────────────────────────
+function FinalCTA() {
+  return (
+    <section id="download" className="bd-cta">
+      <div className="bd-cta-inner">
+        <div className="bd-cta-bg"/>
+        <span className="bd-kicker bd-kicker--light">지금 시작하세요</span>
+        <h2 className="bd-cta-h">오늘부터, 더 가볍게<br/>건강을 챙겨봐요.</h2>
+        <p className="bd-cta-lead">앱 다운로드는 무료. 가족 5명까지 함께 사용할 수 있어요.</p>
+        <div className="bd-cta-row">
+          <a href="#" className="bd-store bd-store--ios bd-store--light">
+            <svg width="22" height="26" viewBox="0 0 22 26" fill="currentColor"><path d="M17.3 13.7c0-3.3 2.7-4.9 2.8-5-1.5-2.3-3.9-2.6-4.8-2.6-2-.2-3.9 1.2-5 1.2-1.1 0-2.7-1.2-4.4-1.1-2.3 0-4.4 1.3-5.5 3.4-2.4 4.1-.6 10.2 1.7 13.5 1.1 1.6 2.5 3.4 4.2 3.4 1.7-.1 2.4-1.1 4.4-1.1 2 0 2.6 1.1 4.4 1.1 1.8 0 3-1.6 4.1-3.3 1.3-1.9 1.8-3.7 1.9-3.8-.1-.1-3.7-1.4-3.8-5.7zM14 4c.9-1.1 1.5-2.7 1.3-4.2-1.3.1-2.9.9-3.8 2-.8 1-1.6 2.6-1.4 4 1.5.1 3-.7 3.9-1.8z"/></svg>
+            <div className="bd-store-inner">
+              <span className="bd-store-top">Download on the</span>
+              <span className="bd-store-bot">App Store</span>
+            </div>
+          </a>
+          <a href="#" className="bd-store bd-store--google bd-store--light">
+            <svg width="24" height="26" viewBox="0 0 24 26" fill="none"><path d="M1 1.7v22.6c0 .7.4 1.3 1 1.5L13.6 13 1 1.7z" fill="#5BC9F4"/><path d="M17.6 9.5L14.5 11.6 2.1 1l-.1.1L13.6 13l4 4-3-3 3 3 3.1-2.1c1.4-.8 1.4-2.7 0-3.4z" fill="#FBC02D"/><path d="M14.5 11.6L2 1l-.4.2 12 12 .9-.6z" fill="#E53935"/><path d="M14.5 14.4l-.9-.6L1.7 25.7l.4.2L14.5 14.4z" fill="#4CAF50"/></svg>
+            <div className="bd-store-inner">
+              <span className="bd-store-top">GET IT ON</span>
+              <span className="bd-store-bot">Google Play</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Footer
+// ─────────────────────────────────────────────────────────────
+function LandingFooter() {
+  return (
+    <footer className="bd-footer">
+      <div className="bd-footer-inner">
+        <div className="bd-footer-brand">
+          <a href="#" className="bd-logo">
+            <CLMark size={32} />
+            <span>bodacare</span>
+          </a>
+          <p className="bd-footer-tag">매일의 건강을 가족과 함께.</p>
+        </div>
+        <div className="bd-footer-cols">
+          <div className="bd-footer-col">
+            <h4>제품</h4>
+            <a href="#features">기능</a>
+            <a href="#ai">AI 도우미</a>
+            <a href="#care">케어그룹</a>
+            <a href="#download">다운로드</a>
+          </div>
+          <div className="bd-footer-col">
+            <h4>회사</h4>
+            <a href="#">소개</a>
+            <a href="#">블로그</a>
+            <a href="#">채용</a>
+            <a href="#">언론</a>
+          </div>
+          <div className="bd-footer-col">
+            <h4>지원</h4>
+            <a href="#">고객센터</a>
+            <a href="#">자주 묻는 질문</a>
+            <a href="mailto:hello@bodacare.com">hello@bodacare.com</a>
+          </div>
+          <div className="bd-footer-col">
+            <h4>법적 정보</h4>
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+            <a href="#">의료기기 인증</a>
+          </div>
+        </div>
+      </div>
+      <div className="bd-footer-bottom">
+        <span>© 2026 bodacare. All rights reserved.</span>
+        <span className="bd-footer-meta">bodacare.com</span>
+      </div>
+    </footer>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Page composition
+// ─────────────────────────────────────────────────────────────
+function LandingPage() {
+  return (
+    <div className="bd-page">
+      <LandingNav />
+      <Hero />
+      <Problems />
+      <Features />
+      <HowItWorks />
+      <FinalCTA />
+      <LandingFooter />
+    </div>
+  );
+}
+
+// Iframe wrapper so canvas artboards get true viewport-based media queries.
+function LandingFrame({ width, height }) {
+  return (
+    <iframe
+      src="bodacare.com.html"
+      title="bodacare landing"
+      style={{
+        width: width,
+        height: height,
+        border: 'none',
+        display: 'block',
+        background: 'var(--cream-50)',
+      }}
+    />
+  );
+}
+
+Object.assign(window, { LandingPage, LandingFrame, MiniPhone });
