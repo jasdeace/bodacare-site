@@ -115,9 +115,12 @@
 
 .bd-kicker {
   display: inline-flex; align-items: center; gap: 8px;
-  font-size: 12px; font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--teal-700);
+}
+@media (min-width: 768px) {
+  .bd-kicker { font-size: 15px; }
 }
 .bd-kicker--light { color: var(--teal-300); }
 
@@ -342,8 +345,8 @@
   .bd-bento-card--family {
     flex-direction: row;
     align-items: center;
-    min-height: 400px;
-    padding: 40px;
+    min-height: 560px;
+    padding: 48px;
   }
   .bd-bento-card--lg .bd-bento-text,
   .bd-bento-card--ai .bd-bento-text,

@@ -26,7 +26,7 @@ function HomeA() {
       <StatusBar time="10:31" />
       <AppHeader right={<>
         <button style={iconBtn}><Ico.bell /></button>
-        <Avatar name="장" size={32} />
+        <Avatar name="김" size={32} />
       </>} />
       <div className="cl-scroll" style={{ padding: '0 20px 16px' }}>
         {/* Greeting */}
@@ -36,7 +36,7 @@ function HomeA() {
           </div>
           <h1 style={{ fontFamily: 'var(--font-sans)', fontWeight: 400, fontSize: 30, lineHeight: 1.15, margin: 0, letterSpacing: '-0.02em' }}>
             좋은 아침이에요,<br/>
-            <span style={{  color: 'var(--teal-700)' }}>원석</span>님.
+            <span style={{  color: 'var(--teal-700)' }}>지수</span>님.
           </h1>
         </div>
 
@@ -230,7 +230,7 @@ function HomeB() {
       <StatusBar time="10:31" />
       <AppHeader right={<>
         <button style={iconBtn}><Ico.bell /></button>
-        <Avatar name="장" size={32} />
+        <Avatar name="김" size={32} />
       </>} />
 
       <div className="cl-scroll" style={{ padding: '0 20px 16px' }}>
@@ -238,7 +238,7 @@ function HomeB() {
         <div style={{ paddingTop: 8, paddingBottom: 18 }}>
           <div style={{ fontSize: 12.5, color: 'var(--ink-500)', fontWeight: 600, letterSpacing: '0.04em', marginBottom: 6 }}>2026년 5월 20일</div>
           <h1 style={{ fontFamily: 'var(--font-sans)', fontWeight: 400, fontSize: 26, margin: 0, letterSpacing: '-0.02em' }}>
-            안녕하세요, 원석님
+            안녕하세요, 지수님
           </h1>
         </div>
 
@@ -363,7 +363,7 @@ function HomeC() {
         <div style={{ paddingTop: 6, paddingBottom: 18 }}>
           <h1 style={{ fontFamily: 'var(--font-sans)', fontWeight: 400, fontSize: 26, margin: 0, letterSpacing: '-0.02em', lineHeight: 1.15 }}>
             좋은 아침이에요,<br/>
-            <span style={{ color: 'var(--teal-700)' }}>장원석</span>님
+            <span style={{ color: 'var(--teal-700)' }}>김지수</span>님
           </h1>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 12, padding: '5px 12px', background: 'var(--teal-100)', color: 'var(--teal-800)', borderRadius: 999, fontSize: 12.5, fontWeight: 600 }}>
             <Ico.check /> 컨디션 양호

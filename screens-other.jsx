@@ -406,7 +406,7 @@ function ProfileScreen() {
           marginBottom: 14,
         }}>
           <div style={{ position: 'relative', marginBottom: 12 }}>
-            <Avatar name="장" size={76} bg="var(--teal-700)" fg="white" />
+            <Avatar name="김" size={76} bg="var(--teal-700)" fg="white" />
             <span style={{
               position: 'absolute', bottom: -2, right: -2,
               width: 24, height: 24, borderRadius: '50%',
@@ -414,8 +414,8 @@ function ProfileScreen() {
               display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white',
             }}><Ico.plus /></span>
           </div>
-          <div style={{ fontFamily: 'var(--font-sans)', fontSize: 22, fontWeight: 500, marginBottom: 2 }}>장원석</div>
-          <div style={{ fontSize: 12.5, color: 'var(--ink-500)' }}>1985년생 · 남성 · 178cm</div>
+          <div style={{ fontFamily: 'var(--font-sans)', fontSize: 22, fontWeight: 500, marginBottom: 2 }}>김지수</div>
+          <div style={{ fontSize: 12.5, color: 'var(--ink-500)' }}>1990년생 · 168cm</div>
           <div style={{ display: 'flex', gap: 24, marginTop: 18, paddingTop: 16, borderTop: '1px solid var(--line-soft)', width: '100%', justifyContent: 'center' }}>
             <Stat value="12" label="연속 일수" />
             <Divider />

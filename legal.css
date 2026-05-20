@@ -1,0 +1,147 @@
+/* bodacare — Legal pages (Terms, Privacy, Consent) shared styles */
+
+.bd-legal {
+  font-family: var(--font-sans);
+  background: var(--cream-50);
+  color: var(--ink-900);
+  min-height: 100vh;
+  letter-spacing: -0.01em;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Minimal sticky nav for legal pages */
+.bd-legal-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250, 247, 241, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+}
+.bd-legal-nav-inner {
+  max-width: 880px; margin: 0 auto;
+  padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.bd-legal-nav a { color: inherit; text-decoration: none; }
+.bd-legal-nav .bd-logo {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-weight: 700; font-size: 18px; letter-spacing: -0.025em;
+}
+.bd-legal-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; font-weight: 500; color: var(--ink-700);
+  padding: 8px 14px; border-radius: 999px;
+  transition: background 160ms ease;
+}
+.bd-legal-back:hover { background: var(--cream-100); }
+
+/* Doc tabs (privacy / terms / consent) */
+.bd-legal-tabs {
+  max-width: 880px; margin: 36px auto 0;
+  padding: 0 24px;
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.bd-legal-tab {
+  display: inline-block;
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  color: var(--ink-500); background: var(--cream-100);
+  border: 1px solid transparent;
+  transition: all 160ms ease;
+  text-decoration: none;
+}
+.bd-legal-tab:hover { background: var(--paper); color: var(--ink-900); }
+.bd-legal-tab.is-active {
+  background: var(--ink-900); color: white;
+}
+
+/* Reading container */
+.bd-legal-main { flex: 1; }
+.bd-legal-doc {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+.bd-legal-card {
+  background: var(--paper);
+  border-radius: 24px;
+  border: 1px solid var(--line-soft);
+  padding: 40px 32px;
+}
+@media (min-width: 768px) {
+  .bd-legal-card { padding: 56px 56px; }
+}
+
+/* Title block */
+.bd-legal-kicker {
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--teal-700);
+}
+.bd-legal-title {
+  font-size: 32px; font-weight: 800;
+  line-height: 1.15; letter-spacing: -0.03em;
+  margin: 8px 0 12px;
+}
+@media (min-width: 768px) { .bd-legal-title { font-size: 38px; } }
+.bd-legal-meta {
+  display: flex; flex-direction: column; gap: 4px;
+  font-size: 13.5px; color: var(--ink-500);
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line-soft);
+  margin-bottom: 28px;
+}
+.bd-legal-meta strong { color: var(--ink-700); font-weight: 600; }
+
+/* Body content */
+.bd-legal-body { font-size: 15.5px; line-height: 1.75; color: var(--ink-700); }
+@media (min-width: 768px) { .bd-legal-body { font-size: 16px; } }
+.bd-legal-body h2 {
+  font-size: 20px; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--ink-900);
+  margin: 36px 0 12px;
+}
+@media (min-width: 768px) { .bd-legal-body h2 { font-size: 22px; } }
+.bd-legal-body h2:first-child { margin-top: 0; }
+.bd-legal-body p { margin: 0 0 14px; }
+.bd-legal-body ul, .bd-legal-body ol { padding-left: 22px; margin: 0 0 16px; }
+.bd-legal-body li { margin-bottom: 8px; }
+.bd-legal-body li strong { color: var(--ink-900); font-weight: 600; }
+.bd-legal-body a { color: var(--teal-700); text-decoration: underline; text-underline-offset: 2px; }
+.bd-legal-body a:hover { color: var(--teal-800); }
+.bd-legal-body em {
+  font-style: normal;
+  display: block;
+  padding: 14px 18px;
+  margin: 16px 0;
+  background: var(--cream-50);
+  border-left: 3px solid var(--teal-700);
+  border-radius: 8px;
+  color: var(--ink-700);
+  font-size: 14.5px;
+}
+
+/* Lead / intro paragraph */
+.bd-legal-body .lead {
+  font-size: 17px; color: var(--ink-700); line-height: 1.65;
+  margin-bottom: 28px;
+}
+
+/* Simple footer */
+.bd-legal-footer {
+  background: var(--ink-900); color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  padding: 32px 24px;
+  text-align: center;
+}
+.bd-legal-footer a { color: rgba(255,255,255,0.85); text-decoration: none; }
+.bd-legal-footer a:hover { color: white; }
+.bd-legal-footer-row {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 18px;
+  margin-bottom: 14px;
+}
+.bd-legal-footer-row a { font-weight: 500; }
+.bd-legal-footer-copy {
+  color: rgba(255,255,255,0.45);
+}
