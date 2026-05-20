@@ -108,7 +108,7 @@ function Hero() {
             </a>
           </div>
           <div className="bd-hero-meta">
-            <Pulse /> 평균 12분 만에 첫 약 등록 완료
+            <Pulse /> 식약처 의약품 API 기반 데이터제공
           </div>
         </div>
 
@@ -156,7 +156,7 @@ function Pulse() {
 function Problems() {
   const items = [
     { kicker: '01', q: '오늘 약 먹었나?', a: '하루에도 몇 번씩, 기억을 더듬게 되는 순간들.' },
-    { kicker: '02', q: '부모님은 잘 챙기시나?', a: '멀리 계신 가족의 복약을 확인하고 싶을 때.' },
+    { kicker: '02', q: '부모님은 잘 챙겨드시나?', a: '멀리 계신 가족의 복약을 확인하고 싶을 때.' },
     { kicker: '03', q: '이 검사 수치, 괜찮은 건가?', a: '병원에서 받아온 결과지 앞에서 막막한 순간.' },
   ];
   return (
@@ -337,7 +337,6 @@ function FinalCTA() {
         <div className="bd-cta-bg"/>
         <span className="bd-kicker bd-kicker--light">지금 시작하세요</span>
         <h2 className="bd-cta-h">오늘부터, 더 가볍게<br/>건강을 챙겨봐요.</h2>
-        <p className="bd-cta-lead">앱 다운로드는 무료. 가족 5명까지 함께 사용할 수 있어요.</p>
         <div className="bd-cta-row">
           <a href="#" className="bd-store bd-store--ios bd-store--light">
             <svg width="22" height="26" viewBox="0 0 22 26" fill="currentColor"><path d="M17.3 13.7c0-3.3 2.7-4.9 2.8-5-1.5-2.3-3.9-2.6-4.8-2.6-2-.2-3.9 1.2-5 1.2-1.1 0-2.7-1.2-4.4-1.1-2.3 0-4.4 1.3-5.5 3.4-2.4 4.1-.6 10.2 1.7 13.5 1.1 1.6 2.5 3.4 4.2 3.4 1.7-.1 2.4-1.1 4.4-1.1 2 0 2.6 1.1 4.4 1.1 1.8 0 3-1.6 4.1-3.3 1.3-1.9 1.8-3.7 1.9-3.8-.1-.1-3.7-1.4-3.8-5.7zM14 4c.9-1.1 1.5-2.7 1.3-4.2-1.3.1-2.9.9-3.8 2-.8 1-1.6 2.6-1.4 4 1.5.1 3-.7 3.9-1.8z"/></svg>
