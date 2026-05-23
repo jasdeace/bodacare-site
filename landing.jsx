@@ -110,6 +110,11 @@ function Hero() {
           <div className="bd-hero-meta">
             <Pulse /> 평균 12분 만에 첫 약 등록 완료
           </div>
+          <ul className="bd-hero-bullets">
+            <li><Check /> 소중한 사람의 건강, 손쉽게 함께</li>
+            <li><Check /> 식약처 공식 API 기반 정확한 약품 정보</li>
+            <li><Check /> AI 분석으로 더 똑똑해진 건강관리</li>
+          </ul>
         </div>
 
         <div className="bd-hero-visual">
@@ -147,6 +152,15 @@ function Pulse() {
       <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--teal-500)', opacity: 0.4, animation: 'bdPulse 1.6s ease-out infinite' }}/>
       <span style={{ position: 'absolute', top: 2, left: 2, width: 4, height: 4, borderRadius: '50%', background: 'var(--teal-700)' }}/>
     </span>
+  );
+}
+
+function Check() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="8" r="8" fill="var(--teal-100)"/>
+      <path d="M4.5 8.2l2.3 2.3 4.7-4.7" stroke="var(--teal-700)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
   );
 }
 
@@ -337,7 +351,6 @@ function FinalCTA() {
         <div className="bd-cta-bg"/>
         <span className="bd-kicker bd-kicker--light">지금 시작하세요</span>
         <h2 className="bd-cta-h">오늘부터, 더 가볍게<br/>건강을 챙겨봐요.</h2>
-        <p className="bd-cta-lead">앱 다운로드는 무료. 가족 5명까지 함께 사용할 수 있어요.</p>
         <div className="bd-cta-row">
           <a href="#" className="bd-store bd-store--ios bd-store--light">
             <svg width="22" height="26" viewBox="0 0 22 26" fill="currentColor"><path d="M17.3 13.7c0-3.3 2.7-4.9 2.8-5-1.5-2.3-3.9-2.6-4.8-2.6-2-.2-3.9 1.2-5 1.2-1.1 0-2.7-1.2-4.4-1.1-2.3 0-4.4 1.3-5.5 3.4-2.4 4.1-.6 10.2 1.7 13.5 1.1 1.6 2.5 3.4 4.2 3.4 1.7-.1 2.4-1.1 4.4-1.1 2 0 2.6 1.1 4.4 1.1 1.8 0 3-1.6 4.1-3.3 1.3-1.9 1.8-3.7 1.9-3.8-.1-.1-3.7-1.4-3.8-5.7zM14 4c.9-1.1 1.5-2.7 1.3-4.2-1.3.1-2.9.9-3.8 2-.8 1-1.6 2.6-1.4 4 1.5.1 3-.7 3.9-1.8z"/></svg>
