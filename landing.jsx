@@ -155,15 +155,6 @@ function Pulse() {
   );
 }
 
-function Check() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <circle cx="8" cy="8" r="8" fill="var(--teal-100)"/>
-      <path d="M4.5 8.2l2.3 2.3 4.7-4.7" stroke="var(--teal-700)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
-
 // ─────────────────────────────────────────────────────────────
 // Problem section
 // ─────────────────────────────────────────────────────────────
