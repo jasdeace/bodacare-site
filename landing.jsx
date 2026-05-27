@@ -81,15 +81,15 @@ function Hero() {
         <div className="bd-hero-text">
           <div className="bd-eyebrow">
             <span className="bd-eyebrow-dot"/>
-            매일의 건강을 가족과 함께
+            멀리서도, 곁에서 챙기는 건강 케어
           </div>
           <h1 className="bd-h1">
-            약 챙기기, <br/>
-            이제 <span className="bd-h1-accent">잊지 않아요</span>
+            소중한분의 건강, <br/>
+            이제 <span className="bd-h1-accent">함께 챙겨요</span>
           </h1>
           <p className="bd-lead">
-            복약 알림부터 혈압·혈당 기록, AI 검사 분석까지.<br className="bd-hide-mobile"/>
-            매일의 건강을 한 곳에서 관리하고, 가족과 함께 챙기세요.
+            부모님 복약부터 혈압·검사 결과까지.<br className="bd-hide-mobile"/>
+            멀리 계셔도, 옆에 있는 것처럼.
           </p>
           <div className="bd-cta-row">
             <a href="#" className="bd-store bd-store--ios">
@@ -108,12 +108,12 @@ function Hero() {
             </a>
           </div>
           <div className="bd-hero-meta">
-            <Pulse /> 평균 12분 만에 첫 약 등록 완료
+            <Pulse /> 멀리 계신 부모님 · 함께 사는 가족 · 챙겨드릴 누구든
           </div>
           <ul className="bd-hero-bullets">
-            <li><Check /> 소중한 사람의 건강, 손쉽게 함께</li>
-            <li><Check /> 식약처 공식 API 기반 정확한 약품 정보</li>
-            <li><Check /> AI 분석으로 더 똑똑해진 건강관리</li>
+            <li><Check /> 보호자가 약을 등록하면 본인이 수락 — 안전하게 함께</li>
+            <li><Check /> 혈압·혈당·검사 결과까지 한 곳에서</li>
+            <li><Check /> AI가 검사지를 읽고 쉽게 설명해드려요</li>
           </ul>
         </div>
 
@@ -160,8 +160,8 @@ function Pulse() {
 // ─────────────────────────────────────────────────────────────
 function Problems() {
   const items = [
-    { kicker: '01', q: '오늘 약 먹었나?', a: '하루에도 몇 번씩, 기억을 더듬게 되는 순간들.' },
-    { kicker: '02', q: '부모님은 잘 챙기시나?', a: '멀리 계신 가족의 복약을 확인하고 싶을 때.' },
+    { kicker: '01', q: '부모님은 잘 챙기시나?', a: '멀리 계신 가족의 복약과 건강을 확인하고 싶을 때.' },
+    { kicker: '02', q: '오늘 약 먹었나?', a: '하루에도 몇 번씩, 기억을 더듬게 되는 순간들.' },
     { kicker: '03', q: '이 검사 수치, 괜찮은 건가?', a: '병원에서 받아온 결과지 앞에서 막막한 순간.' },
   ];
   return (
@@ -206,16 +206,16 @@ function Features() {
           <div className="bd-bento-card bd-bento-card--lg" style={{ background: 'var(--paper)' }}>
             <div className="bd-bento-text">
               <span className="bd-feat-tag" style={{ background: 'var(--teal-100)', color: 'var(--teal-800)' }}>
-                <Ico.pill /> 복약 관리
+                <Ico.pill /> 함께 챙기는 복약
               </span>
-              <h3 className="bd-h3">복용 시간이 되면<br/>부드럽게 알려드려요</h3>
+              <h3 className="bd-h3">멀리 계셔도,<br/>함께 챙겨요</h3>
               <p className="bd-feat-desc">
-                여러 약, 여러 시간대를 한 번에 관리. 복용을 미루거나 건너뛴 약은 한눈에 확인할 수 있어요.
+                보호자가 약을 등록하면 본인이 한 번에 수락. 복용·놓침은 가족이 실시간으로 함께 확인해요.
               </p>
               <ul className="bd-feat-list">
-                <li><Check /> 약별 시간대 설정</li>
-                <li><Check /> "지금 복용" 한 번에 기록</li>
-                <li><Check /> 주간·월간 복용률 그래프</li>
+                <li><Check /> 보호자가 약 등록 → 본인이 수락</li>
+                <li><Check /> 복용·놓침을 가족이 실시간 확인</li>
+                <li><Check /> "약 복용 재촉하기"로 가볍게 챙김</li>
               </ul>
             </div>
             <div className="bd-bento-visual">
