@@ -336,12 +336,50 @@ function AIScreen() {
           식단 사진을 보내주시면 칼로리와 영양을 함께 분석해 드릴게요.
         </ChatBubble>
         <ChatBubble side="me">
+          {/* CSS-drawn meal tray: salmon · rice · spinach */}
           <div style={{
-            width: 140, height: 100, borderRadius: 10, marginBottom: 8,
-            background: 'linear-gradient(135deg, #E8C7A8, #C99873)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 36,
-          }}>🍱</div>
+            width: 160, height: 110, borderRadius: 12, marginBottom: 8,
+            background: 'linear-gradient(135deg, #EFE6D2, #D9C9A8)',
+            border: '1px solid rgba(0,0,0,0.06)',
+            position: 'relative',
+            overflow: 'hidden',
+            boxShadow: 'inset 0 -8px 16px rgba(0,0,0,0.06)',
+          }}>
+            {/* Grilled salmon — orange-pink slab with grill lines */}
+            <div style={{
+              position: 'absolute', top: 18, left: 14, width: 60, height: 38,
+              borderRadius: 8,
+              background: 'linear-gradient(160deg, #F4A584, #D8755A 70%, #B85638)',
+              boxShadow: 'inset 0 -3px 6px rgba(0,0,0,0.18), 0 2px 4px rgba(0,0,0,0.08)',
+            }}>
+              <div style={{ position: 'absolute', top: 8, left: 4, right: 4, height: 1.5, background: 'rgba(255,255,255,0.35)', borderRadius: 1 }}/>
+              <div style={{ position: 'absolute', top: 18, left: 4, right: 4, height: 1.5, background: 'rgba(255,255,255,0.3)', borderRadius: 1 }}/>
+              <div style={{ position: 'absolute', top: 28, left: 4, right: 4, height: 1.5, background: 'rgba(255,255,255,0.35)', borderRadius: 1 }}/>
+            </div>
+            {/* Brown rice — speckled cream mound */}
+            <div style={{
+              position: 'absolute', top: 16, right: 14, width: 50, height: 42,
+              borderRadius: '50%',
+              background: 'radial-gradient(circle at 35% 30%, #FBF2DC, #E9D9B4 70%, #C9B68A)',
+              boxShadow: 'inset 0 -4px 8px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.06)',
+            }}>
+              <div style={{ position: 'absolute', top: 12, left: 16, width: 3, height: 3, borderRadius: '50%', background: '#A89466' }}/>
+              <div style={{ position: 'absolute', top: 20, left: 28, width: 2.5, height: 2.5, borderRadius: '50%', background: '#A89466' }}/>
+              <div style={{ position: 'absolute', top: 8, left: 30, width: 2, height: 2, borderRadius: '50%', background: '#A89466' }}/>
+              <div style={{ position: 'absolute', top: 26, left: 10, width: 2.5, height: 2.5, borderRadius: '50%', background: '#A89466' }}/>
+            </div>
+            {/* Spinach namul — green leafy clump */}
+            <div style={{
+              position: 'absolute', bottom: 12, left: '50%', transform: 'translateX(-50%)',
+              width: 70, height: 28,
+              display: 'flex', justifyContent: 'center', gap: 2,
+            }}>
+              <div style={{ width: 14, height: 24, borderRadius: '60% 60% 30% 30%', background: 'linear-gradient(180deg, #5E8A4A, #3D6B30)', transform: 'rotate(-8deg)' }}/>
+              <div style={{ width: 14, height: 26, borderRadius: '60% 60% 30% 30%', background: 'linear-gradient(180deg, #6B9755, #436F33)' }}/>
+              <div style={{ width: 14, height: 22, borderRadius: '60% 60% 30% 30%', background: 'linear-gradient(180deg, #527D40, #355D29)', transform: 'rotate(6deg)' }}/>
+              <div style={{ width: 14, height: 25, borderRadius: '60% 60% 30% 30%', background: 'linear-gradient(180deg, #5E8A4A, #3D6B30)', transform: 'rotate(-3deg)' }}/>
+            </div>
+          </div>
           오늘 점심이에요
         </ChatBubble>
         <ChatBubble side="ai">
