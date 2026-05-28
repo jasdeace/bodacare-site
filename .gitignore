@@ -17,3 +17,10 @@ npm-debug.log*
 # Optional dev server caches
 .cache/
 .tmp/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
