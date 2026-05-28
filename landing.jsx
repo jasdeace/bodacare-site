@@ -70,6 +70,7 @@ function LandingNav() {
           <a href="#how">사용법</a>
           <a href="#trust">안전</a>
           <a href="#faq">FAQ</a>
+          <a href="/blog">블로그</a>
         </div>
         <div className="bd-nav-cta">
           <a href="#download" className="bd-btn bd-btn--primary">앱 다운로드</a>
@@ -581,6 +582,61 @@ function FAQ() {
 }
 
 // ─────────────────────────────────────────────────────────────
+// Recent blog posts — surface the blog on the homepage
+// ─────────────────────────────────────────────────────────────
+function RecentPosts() {
+  const posts = [
+    {
+      slug: 'remote-parent-meds',
+      category: '돌봄',
+      date: '5월 28일',
+      title: '부모님 약, 멀리서도 챙기는 5가지 방법',
+      excerpt: '주말에만 뵙는 부모님의 매일 복약, 어떻게 도울 수 있을까요?',
+    },
+    {
+      slug: 'top-3-chronic-disease',
+      category: '건강 지식',
+      date: '5월 27일',
+      title: '고혈압·당뇨·고지혈증, 한국인 3대 만성질환',
+      excerpt: '한국 65세 이상의 80%가 보유한 만성질환. 가족이 함께 관리할 때 결과가 달라집니다.',
+    },
+    {
+      slug: 'reading-lab-results',
+      category: '건강 지식',
+      date: '5월 26일',
+      title: '검사 결과지, 어디까지 알아야 할까?',
+      excerpt: '병원에서 받아온 종이 한 장의 숫자들 — 정상 범위와 우려할 수치.',
+    },
+  ];
+  return (
+    <section id="blog" className="bd-recent">
+      <div className="bd-section-inner">
+        <div className="bd-section-head bd-section-head--center">
+          <span className="bd-kicker">블로그</span>
+          <h2 className="bd-h2">건강을 더 깊이,<br/><em>읽으며 알아가요</em></h2>
+        </div>
+        <div className="bd-recent-grid">
+          {posts.map((p) => (
+            <a key={p.slug} href={`/blog-${p.slug}`} className="bd-recent-card">
+              <div className="bd-recent-meta">
+                <span className="bd-recent-tag">{p.category}</span>
+                <span className="bd-recent-date">{p.date}</span>
+              </div>
+              <h3 className="bd-recent-title">{p.title}</h3>
+              <p className="bd-recent-excerpt">{p.excerpt}</p>
+              <span className="bd-recent-link">읽어보기 →</span>
+            </a>
+          ))}
+        </div>
+        <div className="bd-recent-more">
+          <a href="/blog">블로그 전체 보기 →</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
 // Final CTA
 // ─────────────────────────────────────────────────────────────
 function FinalCTA() {
@@ -674,6 +730,7 @@ function LandingPage() {
       <HowItWorks />
       <Trust />
       <FAQ />
+      <RecentPosts />
       <FinalCTA />
       <LandingFooter />
     </div>

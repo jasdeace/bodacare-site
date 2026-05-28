@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bodacare.com/sitemap.xml

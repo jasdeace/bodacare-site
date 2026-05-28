@@ -24,6 +24,20 @@ const POSTS = {
     category: '건강 지식',
     readMin: 7,
   },
+  'inbody-explained': {
+    title: '인바디 결과 100% 활용법 — 골격근·체지방·체수분',
+    excerpt: '한 번 측정하면 끝이 아닌, 추세로 봐야 진짜인 인바디. 핵심 수치 세 가지와 변화 해석법.',
+    date: '2026년 5월 25일',
+    category: '건강 지식',
+    readMin: 6,
+  },
+  'ai-and-your-health': {
+    title: 'AI에게 내 건강을 물어봐도 될까요? 안전한 사용법',
+    excerpt: 'AI 검사 해석과 식단 분석 — 어디까지 믿고, 어디서부터 의사에게 가야 하는지에 대한 가이드.',
+    date: '2026년 5월 24일',
+    category: '디지털 헬스',
+    readMin: 5,
+  },
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -365,12 +379,173 @@ function PostReadingLabResults() {
 }
 
 // ─────────────────────────────────────────────────────────────
+// Post: InBody explained
+// ─────────────────────────────────────────────────────────────
+function PostInBodyExplained() {
+  const p = POSTS['inbody-explained'];
+  return (
+    <BlogLayout title={p.title}>
+      <PostHeader {...p} />
+      <div className="bd-legal-body">
+        <p>
+          헬스장·약국·동네 사거리, 한국에선 인바디(InBody) 기계를 어디서든 만납니다. 한 번 측정하면
+          A4 한 장에 빼곡한 결과지가 나옵니다. 체중·체지방·근육량·체수분·BMI·기초대사량 — 어떤
+          숫자를 봐야 할까요? 그리고 더 중요한 건, 그 숫자가 <strong>지난번보다 어떻게 변했는가</strong>
+          입니다.
+        </p>
+
+        <h2>핵심 수치 세 가지</h2>
+
+        <h3>1. 골격근량 (kg)</h3>
+        <p>
+          움직임을 만드는 근육 무게입니다. 같은 체중이어도 골격근량이 많을수록 기초대사량이 높고,
+          체지방이 잘 안 쌓이며, 노년기 낙상 위험이 줄어듭니다. 한국 성인 남성 평균 약 30-33kg,
+          여성 약 22-25kg. <strong>나이 들수록 자연스럽게 줄어드는 게 정상</strong>이지만, 운동
+          없이는 매년 0.5-1% 정도 줄어듭니다. 유지·증가가 목표예요.
+        </p>
+
+        <h3>2. 체지방률 (%)</h3>
+        <p>
+          전체 체중 중 체지방의 비율. <strong>남성 정상</strong> 10-20% · <strong>여성 정상</strong>
+          18-28%. 같은 체중·BMI여도 체지방률이 낮으면 더 건강한 몸입니다. 다이어트할 때 체중이
+          줄어도 체지방률이 그대로면 근육이 함께 빠진 것 — 안 좋은 신호입니다.
+        </p>
+
+        <h3>3. 체수분 (kg, %)</h3>
+        <p>
+          몸 안의 물 무게. 체수분율은 보통 <strong>남성 55-65%, 여성 50-60%</strong>. 갑자기 떨어졌다면
+          탈수, 갑자기 올라갔다면 부종을 의심합니다. 신장이 안 좋은 분, 심장 약을 드시는 분은
+          체수분 변화를 자주 봐야 합니다.
+        </p>
+
+        <h2>BMI는 충분하지 않아요</h2>
+        <p>
+          BMI(체질량지수)는 키와 체중만 보는 단순 지표입니다. 근육이 많은 사람은 BMI가 "비만"이어도
+          실제로는 건강한 경우가 많습니다. 인바디의 의미는 <strong>체중을 근육·지방·물·뼈로 쪼개서
+          본다</strong>는 점에 있어요. BMI만으로 "체중을 줄여야 한다"고 결론 내리지 마세요.
+        </p>
+
+        <h2>한 번이 아닌, 추세로 봐야 합니다</h2>
+        <p>
+          한 번 측정한 결과로 판단하기 어렵습니다. 측정 시간, 식사 여부, 운동 직후 여부에 따라
+          체수분이 0.5-1kg씩 출렁이고, 그 영향으로 다른 수치도 흔들립니다. <strong>2주에 한 번씩
+          같은 시간·같은 조건으로 측정</strong>해서 3-6개월 추세를 봐야 진짜 변화가 보입니다.
+        </p>
+
+        <h2>다이어트할 때 보면 좋은 패턴</h2>
+        <ul>
+          <li><strong>이상적</strong>: 체중 ↓ + 골격근량 유지 + 체지방률 ↓</li>
+          <li><strong>흔한 실패</strong>: 체중 ↓ + 골격근량 ↓ + 체지방률 비슷 (근육이 같이 빠짐)</li>
+          <li><strong>리컴포지션</strong>: 체중 비슷 + 골격근량 ↑ + 체지방률 ↓ (느리지만 가장 건강함)</li>
+        </ul>
+
+        <h2>Bodacare에서 추적하는 방법</h2>
+        <p>
+          인바디 결과지를 카메라로 찍으면 골격근·체지방·체수분이 자동으로 정리됩니다. 측정할 때마다
+          쌓이면서 그래프로 보이고, 목표 체중·체지방률을 설정해두면 매일 식단과 함께 추적해
+          드려요. AI에게 "이번 결과 어떤가요?"라고 물으면 지난번 대비 어떻게 변했는지 짚어 줍니다.
+        </p>
+
+        <p style={{ marginTop: 28, padding: '16px 20px', background: 'var(--cream-100)', borderRadius: 14, border: '1px solid var(--line-soft)', fontSize: 14 }}>
+          <strong>⚠ 의료 면책</strong>: 이 글은 일반 정보 제공 목적이며 의료 진단·치료를 대체하지 않습니다. 영양·운동·체형 관련 진단은 반드시 전문가와 상의하세요.
+        </p>
+      </div>
+    </BlogLayout>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Post: AI and your health
+// ─────────────────────────────────────────────────────────────
+function PostAIAndYourHealth() {
+  const p = POSTS['ai-and-your-health'];
+  return (
+    <BlogLayout title={p.title}>
+      <PostHeader {...p} />
+      <div className="bd-legal-body">
+        <p>
+          요즘 누구나 ChatGPT에게 검사 결과를 물어봅니다. "내 LDL 142가 위험한가요?" "이 약과 저
+          약을 같이 먹어도 되나요?" — 편하긴 한데, 안전할까요? 결론부터: <strong>참고로는 좋고,
+          치료 결정에는 절대 안 됩니다.</strong>
+        </p>
+
+        <h2>AI가 잘하는 부분</h2>
+        <ul>
+          <li><strong>용어 풀이</strong> — "eGFR이 뭔가요?" "HbA1c가 뭔가요?" 같은 사전적 설명</li>
+          <li><strong>일반적 정상 범위</strong> — 검사지에 적힌 숫자가 일반 기준에서 어디쯤인지</li>
+          <li><strong>방향성 안내</strong> — "이 수치가 높으면 어떤 위험과 연관되는지" 같은 일반 정보</li>
+          <li><strong>다음 질문 정리</strong> — 의사에게 무엇을 물어볼지, 진료 전 준비에 도움</li>
+        </ul>
+
+        <h2>AI가 절대 못하는 부분</h2>
+        <ul>
+          <li><strong>진단</strong> — "당신은 당뇨입니다" 같은 결론은 의사만 할 수 있어요</li>
+          <li><strong>약 처방·용량 조절</strong> — 복용 중인 약, 신장·간 상태, 알레르기 모든 걸 알 수 없어요</li>
+          <li><strong>응급 판단</strong> — 가슴 통증·심한 두통·혈변은 AI에게 묻지 말고 즉시 응급실</li>
+          <li><strong>희귀·복합 사례</strong> — 일반 패턴 학습이라 드문 케이스에 약합니다</li>
+        </ul>
+
+        <h2>안전한 AI 사용 5원칙</h2>
+        <ol>
+          <li>
+            <strong>참고용이라는 전제를 잊지 않기.</strong> AI 답변을 진단으로 받아들이지 마세요.
+            "조사 시작점"으로만 쓰세요.
+          </li>
+          <li>
+            <strong>약 변경·중단은 의사와 상의.</strong> 부작용이 의심돼도 임의로 끊지 말고 처방한
+            의사에게 먼저 묻습니다.
+          </li>
+          <li>
+            <strong>이상 신호는 사람에게.</strong> "수치가 안 좋아 보입니다"라는 AI 응답이 나오면
+            AI에게 더 묻지 말고 병원 예약하세요.
+          </li>
+          <li>
+            <strong>맥락을 같이 입력.</strong> 나이·기저질환·복용 약을 함께 알려야 일반론에서 그나마
+            의미있는 답이 나옵니다.
+          </li>
+          <li>
+            <strong>민감 데이터는 신뢰할 수 있는 서비스로.</strong> 어디든 검사지 사진을 올리기보다
+            개인정보·민감정보 처리방침이 명확한 곳을 쓰세요.
+          </li>
+        </ol>
+
+        <h2>Bodacare가 AI를 다루는 방식</h2>
+        <p>
+          Bodacare의 AI 건강 도우미는 같은 원칙을 따릅니다. 검사 결과지·식단 사진을 분석해 드리지만,
+          모든 응답 끝에 "전문 의료진과 상의가 필요합니다"라는 안내가 포함됩니다. 사진 원본은
+          저장하지 않고, 텍스트 결과만 본인 계정에 남깁니다. 진단을 대체하는 게 아니라, 의사
+          만나기 전에 자료를 푸는 것 — 그 자리에서 멈추도록 설계했어요.
+        </p>
+
+        <h2>응급 신호 — AI에게 묻지 마세요</h2>
+        <p>
+          다음은 AI 대신 즉시 119 또는 응급실로 가야 하는 신호입니다:
+        </p>
+        <ul>
+          <li>가슴 통증, 호흡 곤란, 한쪽 팔·다리 마비</li>
+          <li>심한 두통, 갑작스러운 시야 흐림·말 어눌함</li>
+          <li>의식 저하, 경련</li>
+          <li>혈변·토혈, 갑작스러운 심한 복통</li>
+          <li>약 과다 복용이 의심될 때</li>
+        </ul>
+
+        <p style={{ marginTop: 28, padding: '16px 20px', background: 'var(--cream-100)', borderRadius: 14, border: '1px solid var(--line-soft)', fontSize: 14 }}>
+          <strong>⚠ 의료 면책</strong>: 이 글은 일반 정보 제공 목적이며 의료 진단·치료를 대체하지 않습니다. 건강에 관한 의사 결정은 반드시 전문 의료진과 상의하세요.
+        </p>
+      </div>
+    </BlogLayout>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
 // Router — reads data-post on <html>, falls back to index
 // ─────────────────────────────────────────────────────────────
 const POST_COMPONENTS = {
   'remote-parent-meds': PostRemoteParentMeds,
   'top-3-chronic-disease': PostTop3Chronic,
   'reading-lab-results': PostReadingLabResults,
+  'inbody-explained': PostInBodyExplained,
+  'ai-and-your-health': PostAIAndYourHealth,
 };
 const postKey = document.documentElement.dataset.post;
 const RootComponent = (postKey && POST_COMPONENTS[postKey]) || BlogIndex;

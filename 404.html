@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#FAF7F1" />
+<title>페이지를 찾을 수 없어요 · bodacare</title>
+<meta name="description" content="요청하신 페이지를 찾을 수 없습니다." />
+<meta name="robots" content="noindex" />
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="styles.css?v=5" />
+
+<style>
+  body { background: var(--cream-50); margin: 0; }
+  .bd-404 {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 32px 20px;
+    text-align: center;
+    font-family: var(--font-sans);
+    color: var(--ink-900);
+  }
+  .bd-404-num {
+    font-size: 96px; font-weight: 700; letter-spacing: -0.04em;
+    color: var(--teal-700);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .bd-404-h1 {
+    font-size: 28px; font-weight: 700; letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .bd-404-desc {
+    font-size: 15px; color: var(--ink-500); line-height: 1.6;
+    max-width: 420px;
+    margin: 0 0 32px;
+  }
+  .bd-404-actions {
+    display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+  }
+  .bd-404-btn {
+    padding: 11px 22px;
+    border-radius: 12px;
+    font-size: 14.5px; font-weight: 600;
+    text-decoration: none;
+    transition: transform 180ms ease;
+  }
+  .bd-404-btn--primary {
+    background: var(--teal-700); color: white;
+  }
+  .bd-404-btn--ghost {
+    background: var(--paper); color: var(--ink-700);
+    border: 1px solid var(--line);
+  }
+  .bd-404-btn:hover { transform: translateY(-1px); }
+  .bd-404-links {
+    margin-top: 32px;
+    display: flex; gap: 16px;
+    font-size: 13px;
+    color: var(--ink-500);
+  }
+  .bd-404-links a { color: var(--teal-700); text-decoration: none; font-weight: 500; }
+  .bd-404-links a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="bd-404">
+  <div class="bd-404-num">404</div>
+  <h1 class="bd-404-h1">페이지를 찾을 수 없어요</h1>
+  <p class="bd-404-desc">
+    링크가 잘못되었거나 페이지가 이동되었을 수 있습니다.<br/>
+    아래 링크로 다시 시작해 보세요.
+  </p>
+  <div class="bd-404-actions">
+    <a href="/" class="bd-404-btn bd-404-btn--primary">메인으로</a>
+    <a href="/blog" class="bd-404-btn bd-404-btn--ghost">블로그 보기</a>
+  </div>
+  <div class="bd-404-links">
+    <a href="/about">회사 소개</a>
+    <a href="/privacy">개인정보처리방침</a>
+    <a href="mailto:admin@bodacare.com">문의</a>
+  </div>
+</div>
+</body>
+</html>

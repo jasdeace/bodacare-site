@@ -1,0 +1,9 @@
+# Cloudflare Pages routing
+# Pretty nested blog URLs map to flat filenames
+/blog/remote-parent-meds      /blog-remote-parent-meds       301
+/blog/top-3-chronic-disease   /blog-top-3-chronic-disease    301
+/blog/reading-lab-results     /blog-reading-lab-results      301
+/blog/inbody-explained        /blog-inbody-explained         301
+/blog/ai-and-your-health      /blog-ai-and-your-health       301
+
+# Legacy .html redirects are handled by Cloudflare's auto-route
