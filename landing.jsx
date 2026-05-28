@@ -19,7 +19,13 @@ function MiniPhone({ children, scale = 1, width = 360, height = 760 }) {
         borderRadius: 38,
         border: '8px solid #0F2C2E',
         boxShadow: '0 30px 60px -20px rgba(15,44,46,0.32), 0 0 0 1px rgba(15,44,46,0.05)',
+        // clip-path is a hard mask that's honored even when the element is
+        // transformed inside a nested overflow:hidden ancestor — which is
+        // exactly the bento-card situation where border-radius + overflow
+        // alone was leaking content past the bezel.
+        clipPath: 'inset(0 round 38px)',
         overflow: 'hidden',
+        isolation: 'isolate',
         position: 'absolute',
         top: 0, left: 0,
         transform: `scale(${scale})`,
