@@ -90,6 +90,12 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  /* Match the phone bezel's inner curve (38px outer radius - 8px border = 30px).
+     Without this, the rectangular cl-screen visually fights the rounded bezel
+     at its corners — especially the bottom tab bar's flat edge against the
+     curved bottom. Double-clipping ensures the screen content follows the
+     bezel's inner shape on every browser/scale. */
+  border-radius: 30px;
 }
 .cl-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .cl-scroll::-webkit-scrollbar { width: 0; height: 0; }
