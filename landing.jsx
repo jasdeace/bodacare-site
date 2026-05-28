@@ -66,8 +66,9 @@ function LandingNav() {
         <div className="bd-nav-links">
           <a href="#story">소개</a>
           <a href="#features">제품</a>
-          <a href="#care">케어그룹</a>
+          <a href="#who">추천</a>
           <a href="#how">사용법</a>
+          <a href="#trust">안전</a>
           <a href="#faq">FAQ</a>
         </div>
         <div className="bd-nav-cta">
@@ -353,6 +354,147 @@ function Story() {
 }
 
 // ─────────────────────────────────────────────────────────────
+// Personas — 이런 분께 추천해요
+// ─────────────────────────────────────────────────────────────
+function Personas() {
+  const items = [
+    {
+      tint: 'var(--rose-100)',
+      fg: '#A24652',
+      avatar: '딸',
+      title: '멀리 계신 부모님을 챙기는 자녀',
+      desc: '주말에만 뵙는 부모님, 매일 약·혈압·식단까지 옆에서 본 듯 확인하세요.',
+      tags: ['보호자가 약 등록', '실시간 복용 확인', '약 복용 재촉'],
+    },
+    {
+      tint: 'var(--teal-100)',
+      fg: 'var(--teal-800)',
+      avatar: '나',
+      title: '만성질환을 관리하는 본인',
+      desc: '고혈압·당뇨·고지혈증 약과 수치, 검사 결과까지 한 곳에서. AI가 풀어드려요.',
+      tags: ['복약 자동 알림', '혈압·혈당 그래프', '검사지 OCR + AI 해석'],
+    },
+    {
+      tint: 'var(--coral-100)',
+      fg: '#A85A45',
+      avatar: '부부',
+      title: '서로의 건강을 챙기는 부부',
+      desc: '당뇨 있는 남편, 혈압 재는 아내. 서로의 변화를 옆에서 보고 함께 챙겨요.',
+      tags: ['양방향 케어 그룹', '데이터별 공개 설정', '검사·식단 공유'],
+    },
+    {
+      tint: 'var(--sand-100)',
+      fg: 'var(--warn-500)',
+      avatar: 'IB',
+      title: '체형·다이어트 관리 중인 분',
+      desc: '인바디 결과, 매일 식단 사진, AI 영양 코칭. 목표까지 함께 갑니다.',
+      tags: ['인바디 OCR', 'AI 식단 분석', '목표·트렌드 추적'],
+    },
+  ];
+  return (
+    <section id="who" className="bd-personas">
+      <div className="bd-section-inner">
+        <div className="bd-section-head bd-section-head--center">
+          <span className="bd-kicker">이런 분께 추천해요</span>
+          <h2 className="bd-h2">한 사람이 아니라,<br/><em>한 관계를 위한 앱</em></h2>
+        </div>
+        <div className="bd-persona-grid">
+          {items.map((p) => (
+            <div key={p.title} className="bd-persona-card">
+              <div className="bd-persona-head">
+                <span className="bd-persona-avatar" style={{ background: p.tint, color: p.fg }}>{p.avatar}</span>
+                <h3 className="bd-persona-title">{p.title}</h3>
+              </div>
+              <p className="bd-persona-desc">{p.desc}</p>
+              <div className="bd-persona-tags">
+                {p.tags.map((t) => (
+                  <span key={t} className="bd-persona-tag">{t}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Trust — 안전하게 함께
+// ─────────────────────────────────────────────────────────────
+function Trust() {
+  const pillars = [
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
+          <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      ),
+      title: '본인이 초대한 가족만',
+      desc: '내가 직접 초대한 사람만 데이터를 볼 수 있어요. 가족별로 약·혈압·식단 권한을 따로 켜고 끌 수 있습니다.',
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" strokeWidth="1.6"/>
+          <path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+        </svg>
+      ),
+      title: '저장 시 암호화 · TLS 전송',
+      desc: '비밀번호와 민감 데이터는 모두 암호화되어 저장됩니다. 전송 구간도 SSL/TLS로 보호돼요.',
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="1.6"/>
+          <path d="M3 9h18" stroke="currentColor" strokeWidth="1.6"/>
+          <path d="M8 14l2 2 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      ),
+      title: '사진 원본은 저장 안 해요',
+      desc: '검사지·식단 사진은 AI 분석을 위해 일시적으로 전송될 뿐, 운영자 서버에 보관하지 않습니다. 텍스트 결과만 본인 계정에 남아요.',
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <path d="M12 21s-7-4.5-7-11a7 7 0 0114 0c0 6.5-7 11-7 11z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
+          <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.6"/>
+        </svg>
+      ),
+      title: '한국 PIPA 기준 운영',
+      desc: '민감정보(건강 정보)는 일반 개인정보와 분리해 별도 동의를 받습니다. 회원 탈퇴 시 모든 데이터가 즉시 삭제돼요.',
+    },
+  ];
+  return (
+    <section id="trust" className="bd-trust">
+      <div className="bd-section-inner">
+        <div className="bd-section-head bd-section-head--center">
+          <span className="bd-kicker">안전하게 함께</span>
+          <h2 className="bd-h2">건강 데이터, <em>내가 정한 만큼만</em></h2>
+          <p className="bd-section-lead">
+            건강 정보는 무엇보다 민감해요. 본인이 초대한 가족만, 본인이 정한 항목만,<br className="bd-hide-mobile"/>
+            안전한 방식으로 처리합니다.
+          </p>
+        </div>
+        <div className="bd-trust-grid">
+          {pillars.map((p) => (
+            <div key={p.title} className="bd-trust-card">
+              <div className="bd-trust-icon">{p.icon}</div>
+              <h3 className="bd-trust-title">{p.title}</h3>
+              <p className="bd-trust-desc">{p.desc}</p>
+            </div>
+          ))}
+        </div>
+        <p className="bd-trust-footnote">
+          자세한 내용은 <a href="https://bodacare.com/privacy">개인정보처리방침</a> · <a href="https://bodacare.com/consent">민감정보 동의</a> 에 정리돼 있어요.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
 // How it works
 // ─────────────────────────────────────────────────────────────
 function HowItWorks() {
@@ -528,7 +670,9 @@ function LandingPage() {
       <Problems />
       <Story />
       <Features />
+      <Personas />
       <HowItWorks />
+      <Trust />
       <FAQ />
       <FinalCTA />
       <LandingFooter />
