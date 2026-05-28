@@ -194,7 +194,7 @@
 .bd-cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
 .bd-hero-meta { margin-top: 22px; font-size: 13px; color: var(--ink-500); display: flex; align-items: center; }
 .bd-hero-bullets {
-  margin: 16px 0 0; padding: 0; list-style: none;
+  margin: 36px 0 0; padding: 0; list-style: none;
   display: grid; gap: 10px;
 }
 .bd-hero-bullets li {
@@ -264,13 +264,13 @@
 .bd-chip-dot--teal  { background: var(--teal-500); box-shadow: 0 0 0 4px var(--teal-100); }
 .bd-chip-dot--coral { background: var(--coral-500); box-shadow: 0 0 0 4px var(--coral-100); }
 .bd-chip-dot--rose  { background: #D85B66; box-shadow: 0 0 0 4px var(--rose-100); }
-.bd-chip--1 { top: 60px; right: -40px; }
-.bd-chip--2 { top: 320px; left: -50px; }
-.bd-chip--3 { bottom: 100px; right: -30px; }
+.bd-chip--1 { top: 40px; right: -40px; }
+.bd-chip--2 { top: 360px; left: -60px; }
+.bd-chip--3 { top: 220px; right: -50px; }
 @media (max-width: 1023px) {
-  .bd-chip--1 { right: 0; top: 40px; }
-  .bd-chip--2 { left: 0; top: 300px; }
-  .bd-chip--3 { right: 0; bottom: 60px; }
+  .bd-chip--1 { right: 0; top: 30px; }
+  .bd-chip--2 { left: 0; top: 320px; }
+  .bd-chip--3 { right: 0; top: 200px; }
 }
 
 /* ── Problems ──────────────────────────────────────────────── */
