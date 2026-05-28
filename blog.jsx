@@ -1,8 +1,8 @@
 /* global React, ReactDOM, CLMark */
 // bodacare — Blog index.
-// All posts now live in Supabase (managed via admin.bodacare.com → /blog).
-// This page fetches published posts and links each to the dynamic post
-// renderer at /blog-post.html?slug=…. There are no hardcoded posts anymore —
+// All posts live in Supabase (managed via admin.bodacare.com → /blog).
+// This page fetches published posts and links each to /blog/<slug>, which the
+// Worker (worker.js) server-renders. There are no hardcoded posts anymore —
 // the six originals were migrated into the blog_posts table.
 
 const SUPABASE_URL = 'https://wmzochdgnujalmgnvmku.supabase.co';
@@ -94,7 +94,7 @@ function BlogIndex() {
         {posts && posts.length > 0 && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
             {posts.map((p) => (
-              <a key={p.slug} href={`/blog-post.html?slug=${encodeURIComponent(p.slug)}`} style={{
+              <a key={p.slug} href={`/blog/${encodeURIComponent(p.slug)}`} style={{
                 display: 'block', padding: '22px 24px',
                 background: 'var(--cream-50)',
                 border: '1px solid var(--line-soft)',
