@@ -92,8 +92,8 @@ function AboutDoc() {
 
         <h2>언론·미디어 문의</h2>
         <p>
+          한 줄 소개, 팩트 시트, 로고, 브랜드 컬러는 <a href="/press">언론 키트 페이지</a>에 정리해 두었습니다.
           취재 및 인터뷰 요청, 보도자료 요청은 <a href="mailto:admin@bodacare.com">admin@bodacare.com</a> 으로 부탁드립니다.
-          서비스 스크린샷, 로고, 한 줄 소개는 메일 회신으로 보내드려요.
         </p>
       </div>
     </AboutLayout>

@@ -693,6 +693,7 @@ function LandingFooter() {
             <h4>회사</h4>
             <a href="/about">소개</a>
             <a href="/blog">블로그</a>
+            <a href="/press">언론 키트</a>
           </div>
           <div className="bd-footer-col">
             <h4>지원</h4>
