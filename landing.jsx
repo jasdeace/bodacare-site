@@ -635,12 +635,12 @@ function LandingFooter() {
           </div>
           <div className="bd-footer-col">
             <h4>회사</h4>
-            <a href="#">소개 (준비 중)</a>
-            <a href="#">블로그 (준비 중)</a>
+            <a href="/about">소개</a>
+            <a href="/blog">블로그</a>
           </div>
           <div className="bd-footer-col">
             <h4>지원</h4>
-            <a href="#">FAQ (준비 중)</a>
+            <a href="#faq">FAQ</a>
             <a href="mailto:admin@bodacare.com">admin@bodacare.com</a>
           </div>
           <div className="bd-footer-col">
