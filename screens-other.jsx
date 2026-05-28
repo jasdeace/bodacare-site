@@ -546,126 +546,143 @@ function SettingRow({ icon, label, value }) {
 }
 
 // ─────────────────────────────────────────────────────────────
-// Care group screen — landing family card
-// Per-viewer sharing toggles: each member sees only what taker shares
+// Giver dashboard screen — landing family card
+// Mirrors the real 돌봄 tab (mobile/app/giver/[takerId].tsx):
+// a caregiver viewing their loved one's status, scoped to what the
+// taker has shared with them.
 // ─────────────────────────────────────────────────────────────
-function CareGroupScreen() {
-  const members = [
-    {
-      name: '딸 (수민)', initial: '딸', bg: 'var(--coral-300)',
-      relation: '서울 · 자녀',
-      shares: { 약: true, 혈압: true, 식단: false },
-    },
-    {
-      name: '아들 (재훈)', initial: '아들', bg: 'var(--teal-700)',
-      relation: '부산 · 자녀',
-      shares: { 약: true, 혈압: false, 식단: false },
-    },
-    {
-      name: '남편', initial: '남편', bg: 'var(--sand-500)',
-      relation: '함께 거주 · 배우자',
-      shares: { 약: true, 혈압: true, 식단: true },
-    },
+function GiverDashboardScreen() {
+  const week = [
+    { day: '목', date: '15', rate: 100, active: false },
+    { day: '금', date: '16', rate: 67,  active: false },
+    { day: '토', date: '17', rate: 100, active: false },
+    { day: '일', date: '18', rate: 100, active: false },
+    { day: '월', date: '19', rate: 100, active: false },
+    { day: '화', date: '20', rate: 67,  active: false },
+    { day: '수', date: '21', rate: 67,  active: true },
   ];
-
-  const Toggle = ({ on }) => (
-    <span style={{
-      width: 30, height: 18, borderRadius: 999,
-      background: on ? 'var(--teal-700)' : 'var(--cream-100)',
-      border: on ? 'none' : '1px solid var(--line)',
-      position: 'relative', flexShrink: 0,
-    }}>
-      <span style={{
-        position: 'absolute', top: 2, left: on ? 14 : 2,
-        width: 14, height: 14, borderRadius: '50%',
-        background: 'white',
-        boxShadow: '0 1px 2px rgba(0,0,0,0.15)',
-        transition: 'left 200ms',
-      }}/>
-    </span>
-  );
-
   return (
     <div className="cl-screen">
-      <StatusBar time="10:33" />
-      <div style={{ padding: '8px 20px 6px', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <h1 style={{ fontFamily: 'var(--font-sans)', fontWeight: 400, fontSize: 26, margin: 0, letterSpacing: '-0.02em' }}>케어 그룹</h1>
-        <button style={iconBtn}><Ico.plus /></button>
+      <StatusBar time="14:08" />
+
+      {/* Header: back + avatar + name + 돌봄 대시보드 */}
+      <div style={{
+        padding: '6px 14px 12px',
+        flexShrink: 0,
+        borderBottom: '1px solid var(--line-soft)',
+        background: 'var(--paper)',
+        display: 'flex', alignItems: 'center', gap: 10,
+      }}>
+        <span style={{ width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--ink-700)' }}><Ico.chev /></span>
+        <span style={{
+          width: 38, height: 38, borderRadius: '50%',
+          background: 'var(--teal-100)', color: 'var(--teal-700)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 15, fontWeight: 700,
+        }}>엄</span>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink-900)' }}>엄마</div>
+          <div style={{ fontSize: 11, color: 'var(--ink-500)' }}>돌봄 대시보드</div>
+        </div>
       </div>
 
-      <div className="cl-scroll" style={{ padding: '12px 20px 16px' }}>
-        {/* Self card */}
+      {/* Tabs: 현황 / 복약추가 / 식단 */}
+      <div style={{ padding: '10px 16px 6px', flexShrink: 0, background: 'var(--paper)' }}>
         <div style={{
-          background: 'linear-gradient(135deg, var(--teal-800), var(--teal-700))',
-          borderRadius: 18, padding: '16px 18px', color: 'white',
-          marginBottom: 14, position: 'relative', overflow: 'hidden',
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+          background: 'var(--cream-100)', borderRadius: 12, padding: 4, gap: 4,
         }}>
-          <div style={{ position: 'absolute', right: -20, top: -20, width: 120, height: 120, borderRadius: '50%', background: 'rgba(94,234,212,0.15)' }}/>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', opacity: 0.7, marginBottom: 4 }}>나의 케어 그룹</div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div>
-              <div style={{ fontFamily: 'var(--font-sans)', fontSize: 18, fontWeight: 500 }}>3명이 함께 봐요</div>
-              <div style={{ fontSize: 12, opacity: 0.75, marginTop: 2 }}>각자에게 공유할 정보를 따로 정해요</div>
-            </div>
-            <div style={{ display: 'flex' }}>
-              {members.map((m, i) => (
-                <span key={i} style={{
-                  width: 32, height: 32, borderRadius: '50%',
-                  background: m.bg, color: 'white',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 12, fontWeight: 700,
-                  border: '2px solid var(--teal-800)',
-                  marginLeft: i === 0 ? 0 : -8,
-                }}>{m.initial}</span>
-              ))}
-            </div>
+          <div style={{
+            background: 'var(--paper)', borderRadius: 9,
+            padding: '8px 0', textAlign: 'center', fontSize: 13, fontWeight: 700,
+            color: 'var(--teal-700)', boxShadow: '0 1px 2px rgba(15,44,46,0.06)',
+          }}>현황</div>
+          <div style={{ padding: '8px 0', textAlign: 'center', fontSize: 13, fontWeight: 500, color: 'var(--ink-500)' }}>복약추가</div>
+          <div style={{ padding: '8px 0', textAlign: 'center', fontSize: 13, fontWeight: 500, color: 'var(--ink-500)' }}>식단</div>
+        </div>
+      </div>
+
+      <div className="cl-scroll" style={{ padding: '14px 16px 16px' }}>
+        {/* Stat cards row */}
+        <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+          <div style={{ flex: 1, background: 'var(--paper)', borderRadius: 14, padding: '12px 14px', border: '1px solid var(--line-soft)' }}>
+            <div style={{ fontSize: 11, color: 'var(--ink-500)', fontWeight: 600 }}>복용</div>
+            <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--ink-900)', marginTop: 4, letterSpacing: '-0.01em' }} className="tabular">2 / 3</div>
+          </div>
+          <div style={{ flex: 1, background: 'var(--paper)', borderRadius: 14, padding: '12px 14px', border: '1px solid var(--line-soft)' }}>
+            <div style={{ fontSize: 11, color: 'var(--ink-500)', fontWeight: 600 }}>최근 혈압</div>
+            <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--ink-900)', marginTop: 4, letterSpacing: '-0.01em' }} className="tabular">128/82</div>
           </div>
         </div>
 
-        {/* Member rows with sharing toggles */}
-        <div style={{ fontSize: 11.5, color: 'var(--ink-500)', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8, paddingLeft: 4 }}>보호자별 공유 설정</div>
-        {members.map((m) => (
-          <div key={m.name} style={{
-            background: 'var(--paper)', borderRadius: 18,
-            border: '1px solid var(--line-soft)',
-            padding: '14px 16px', marginBottom: 8,
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-              <span style={{
-                width: 38, height: 38, borderRadius: '50%',
-                background: m.bg, color: 'white',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 13, fontWeight: 700,
-                flexShrink: 0,
-              }}>{m.initial}</span>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink-900)' }}>{m.name}</div>
-                <div style={{ fontSize: 11.5, color: 'var(--ink-500)', marginTop: 1 }}>{m.relation}</div>
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: 14, paddingTop: 10, borderTop: '1px solid var(--line-soft)' }}>
-              {Object.entries(m.shares).map(([key, on]) => (
-                <div key={key} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 4 }}>
-                  <span style={{ fontSize: 12, fontWeight: 600, color: on ? 'var(--ink-900)' : 'var(--ink-400)' }}>{key}</span>
-                  <Toggle on={on} />
+        {/* Nudge button — "약 복용 재촉하기" since mom missed 14:00 dose */}
+        <div style={{
+          background: '#F59E0B', borderRadius: 16,
+          padding: '14px 16px', marginBottom: 14,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+          color: 'white', fontWeight: 700, fontSize: 14.5,
+        }}>
+          <Ico.bell /> 약 복용 재촉하기
+        </div>
+
+        {/* 7-day adherence dots */}
+        <div style={{
+          background: 'var(--paper)', borderRadius: 16,
+          border: '1px solid var(--line-soft)',
+          padding: '14px 12px',
+          marginBottom: 12,
+        }}>
+          <div style={{ fontSize: 12, color: 'var(--ink-500)', fontWeight: 600, marginBottom: 10, paddingLeft: 4 }}>주간 복용률</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+            {week.map((d) => {
+              const tone =
+                d.rate === 100 ? { bg: 'var(--teal-700)', fg: 'white' } :
+                d.rate >= 50   ? { bg: 'var(--sand-200)', fg: 'var(--ink-700)' } :
+                                 { bg: 'var(--cream-100)', fg: 'var(--ink-400)' };
+              return (
+                <div key={d.date} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5 }}>
+                  <span style={{ fontSize: 10, fontWeight: 600, color: 'var(--ink-500)' }}>{d.day}</span>
+                  <span style={{
+                    width: 30, height: 30, borderRadius: '50%',
+                    background: tone.bg, color: tone.fg,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 10.5, fontWeight: 700, fontVariant: 'tabular-nums',
+                    border: d.active ? '2px solid var(--teal-700)' : 'none',
+                    boxSizing: 'border-box',
+                  }}>{d.rate}</span>
+                  <span style={{ fontSize: 9, color: 'var(--ink-400)' }}>{d.date}</span>
                 </div>
-              ))}
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Today's activity feed */}
+        <div style={{ fontSize: 12, color: 'var(--ink-500)', fontWeight: 600, marginBottom: 8, paddingLeft: 4 }}>오늘 · 5월 21일</div>
+        {[
+          { time: '09:00', desc: '듀카브정 60mg 복용', tint: 'var(--teal-100)', fg: 'var(--teal-800)', icon: 'pill' },
+          { time: '11:32', desc: '혈압 128/82 측정', tint: 'var(--rose-100)', fg: '#A24652', icon: 'heart' },
+          { time: '12:15', desc: '오메가3 1000mg 복용', tint: 'var(--coral-100)', fg: '#A85A45', icon: 'pill' },
+        ].map((a) => (
+          <div key={a.time} style={{
+            background: 'var(--paper)', borderRadius: 14,
+            border: '1px solid var(--line-soft)',
+            padding: '11px 14px', marginBottom: 6,
+            display: 'flex', alignItems: 'center', gap: 12,
+          }}>
+            <span style={{
+              width: 32, height: 32, borderRadius: 10,
+              background: a.tint, color: a.fg,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              flexShrink: 0,
+            }}>{a.icon === 'pill' ? <Ico.pill /> : <Ico.heart />}</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 13.5, fontWeight: 600, color: 'var(--ink-900)' }}>{a.desc}</div>
             </div>
+            <div style={{ fontSize: 11, color: 'var(--ink-500)', fontWeight: 600 }} className="tabular">{a.time}</div>
           </div>
         ))}
-
-        {/* Invite */}
-        <div style={{
-          marginTop: 6, padding: '14px 16px', borderRadius: 16,
-          background: 'var(--cream-100)', border: '1px dashed var(--line)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-          color: 'var(--teal-700)', fontWeight: 600, fontSize: 13.5,
-        }}>
-          <Ico.plus /> 가족 초대하기
-        </div>
       </div>
-
-      <TabBar active="user" />
     </div>
   );
 }
@@ -751,4 +768,4 @@ function NutritionScreen() {
   );
 }
 
-Object.assign(window, { MetricsScreen, MedicineEditScreen, AIScreen, ProfileScreen, NutritionScreen, CareGroupScreen });
+Object.assign(window, { MetricsScreen, MedicineEditScreen, AIScreen, ProfileScreen, NutritionScreen, GiverDashboardScreen });

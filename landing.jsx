@@ -1,4 +1,4 @@
-/* global React, CLMark, CLHeaderLogo, HomeA, MetricsScreen, AIScreen, MedicineEditScreen, ProfileScreen, NutritionScreen, CareGroupScreen, Ico */
+/* global React, CLMark, CLHeaderLogo, HomeA, MetricsScreen, AIScreen, MedicineEditScreen, ProfileScreen, NutritionScreen, GiverDashboardScreen, Ico */
 // bodacare — marketing landing page sections
 
 // ─────────────────────────────────────────────────────────────
@@ -280,9 +280,9 @@ function Features() {
               <span className="bd-feat-tag" style={{ background: 'var(--sand-100)', color: 'var(--warn-500)' }}>
                 <Ico.share /> 케어 그룹
               </span>
-              <h3 className="bd-h3">여러 가족이,<br/>데이터별로 따로 공유</h3>
+              <h3 className="bd-h3">멀리 계신 부모님,<br/>곁에서 챙기는 돌봄</h3>
               <p className="bd-feat-desc">
-                자녀·배우자·형제 누구든 초대해서 함께 봐요. 약은 자녀에게, 식단은 배우자에게 — 보호자별로 공개 범위를 따로 설정할 수 있어요.
+                자녀·배우자·형제 누구든 초대해서 함께 봐요. 보호자별로 약·혈압·식단 공개 범위를 따로 정할 수 있어요.
               </p>
               <div className="bd-care-avatars">
                 <div className="bd-avatar" style={{ background: 'var(--teal-700)' }}>김</div>
@@ -292,7 +292,7 @@ function Features() {
               </div>
             </div>
             <div className="bd-bento-visual">
-              <MiniPhone scale={0.62}><CareGroupScreen /></MiniPhone>
+              <MiniPhone scale={0.62}><GiverDashboardScreen /></MiniPhone>
             </div>
           </div>
         </div>
