@@ -79,6 +79,8 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+html { scroll-behavior: smooth; scroll-padding-top: 60px; }
+
 /* utility classes used across artboards */
 .cl-screen {
   width: 100%;

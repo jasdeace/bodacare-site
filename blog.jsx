@@ -94,6 +94,44 @@ function PostHeader({ title, date, category, readMin }) {
   );
 }
 
+// Shows 2 other posts at the bottom of every post — keeps readers in the blog.
+function RelatedPosts({ currentSlug }) {
+  const others = Object.entries(POSTS).filter(([slug]) => slug !== currentSlug).slice(0, 2);
+  return (
+    <div style={{
+      marginTop: 40,
+      paddingTop: 28,
+      borderTop: '1px solid var(--line-soft)',
+    }}>
+      <div style={{ fontSize: 12, color: 'var(--ink-500)', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 14 }}>
+        더 읽어볼 만한 글
+      </div>
+      <div style={{ display: 'grid', gap: 12 }}>
+        {others.map(([slug, p]) => (
+          <a key={slug} href={`/blog-${slug}`} style={{
+            display: 'block', padding: '16px 18px',
+            background: 'var(--cream-50)',
+            border: '1px solid var(--line-soft)',
+            borderRadius: 14,
+            textDecoration: 'none', color: 'inherit',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11.5, color: 'var(--ink-500)', marginBottom: 4 }}>
+              <span style={{ padding: '2px 8px', background: 'var(--teal-100)', color: 'var(--teal-800)', borderRadius: 999, fontWeight: 700, fontSize: 10.5 }}>{p.category}</span>
+              <span>{p.date}</span>
+            </div>
+            <div style={{ fontSize: 15.5, fontWeight: 600, letterSpacing: '-0.01em', lineHeight: 1.35 }}>{p.title}</div>
+          </a>
+        ))}
+        <a href="/blog" style={{
+          textAlign: 'center', padding: '10px 0',
+          fontSize: 13, color: 'var(--teal-700)',
+          textDecoration: 'none', fontWeight: 600,
+        }}>블로그 전체 보기 →</a>
+      </div>
+    </div>
+  );
+}
+
 // ─────────────────────────────────────────────────────────────
 // Index
 // ─────────────────────────────────────────────────────────────
@@ -209,6 +247,8 @@ function PostRemoteParentMeds() {
           <strong>Bodacare에서 해볼 수 있는 것</strong>: 처방전 자동 입력, 보호자가 약 등록 → 본인이 수락, 가족 실시간 복용 확인, 약 복용 재촉, 검사 결과 OCR + AI 해석.
           <br/><a href="/" style={{ color: 'var(--teal-700)', fontWeight: 600 }}>앱 자세히 보기 →</a>
         </p>
+
+        <RelatedPosts currentSlug="remote-parent-meds" />
       </div>
     </BlogLayout>
   );
@@ -281,6 +321,8 @@ function PostTop3Chronic() {
         <p style={{ marginTop: 28, padding: '16px 20px', background: 'var(--cream-100)', borderRadius: 14, border: '1px solid var(--line-soft)', fontSize: 14 }}>
           <strong>⚠ 의료 면책</strong>: 이 글은 일반 정보 제공 목적이며 의료 진단·치료를 대체하지 않습니다. 진단·약 변경 등은 반드시 의료진과 상의하세요.
         </p>
+
+        <RelatedPosts currentSlug="top-3-chronic-disease" />
       </div>
     </BlogLayout>
   );
@@ -373,6 +415,8 @@ function PostReadingLabResults() {
         <p style={{ marginTop: 28, padding: '16px 20px', background: 'var(--cream-100)', borderRadius: 14, border: '1px solid var(--line-soft)', fontSize: 14 }}>
           <strong>⚠ 의료 면책</strong>: 이 글은 일반 정보 제공 목적이며 의료 진단·치료를 대체하지 않습니다. 진단·약 변경 등은 반드시 의료진과 상의하세요.
         </p>
+
+        <RelatedPosts currentSlug="reading-lab-results" />
       </div>
     </BlogLayout>
   );
@@ -449,6 +493,8 @@ function PostInBodyExplained() {
         <p style={{ marginTop: 28, padding: '16px 20px', background: 'var(--cream-100)', borderRadius: 14, border: '1px solid var(--line-soft)', fontSize: 14 }}>
           <strong>⚠ 의료 면책</strong>: 이 글은 일반 정보 제공 목적이며 의료 진단·치료를 대체하지 않습니다. 영양·운동·체형 관련 진단은 반드시 전문가와 상의하세요.
         </p>
+
+        <RelatedPosts currentSlug="inbody-explained" />
       </div>
     </BlogLayout>
   );
@@ -532,6 +578,8 @@ function PostAIAndYourHealth() {
         <p style={{ marginTop: 28, padding: '16px 20px', background: 'var(--cream-100)', borderRadius: 14, border: '1px solid var(--line-soft)', fontSize: 14 }}>
           <strong>⚠ 의료 면책</strong>: 이 글은 일반 정보 제공 목적이며 의료 진단·치료를 대체하지 않습니다. 건강에 관한 의사 결정은 반드시 전문 의료진과 상의하세요.
         </p>
+
+        <RelatedPosts currentSlug="ai-and-your-health" />
       </div>
     </BlogLayout>
   );
