@@ -64,10 +64,11 @@ function LandingNav() {
           <span>bodacare</span>
         </a>
         <div className="bd-nav-links">
+          <a href="#story">소개</a>
           <a href="#features">제품</a>
-          <a href="#ai">AI 도우미</a>
           <a href="#care">케어그룹</a>
           <a href="#how">사용법</a>
+          <a href="#faq">FAQ</a>
         </div>
         <div className="bd-nav-cta">
           <a href="#download" className="bd-btn bd-btn--primary">앱 다운로드</a>
@@ -306,6 +307,52 @@ function Check() {
 }
 
 // ─────────────────────────────────────────────────────────────
+// Story — why Bodacare exists
+// ─────────────────────────────────────────────────────────────
+function Story() {
+  const principles = [
+    {
+      icon: '✦',
+      title: '거리를 좁히는 일',
+      desc: '멀리 계신 부모님의 약, 혈압, 식단 — 옆에 있는 듯 살펴보세요.',
+    },
+    {
+      icon: '◆',
+      title: '부담을 나누는 일',
+      desc: '보호자가 등록, 본인은 수락. 복용 여부는 가족이 함께 확인합니다.',
+    },
+    {
+      icon: '◉',
+      title: '정보를 풀어주는 일',
+      desc: '어려운 검사 수치도, 매일의 식단도, AI와 대화로 쉽게 이해해요.',
+    },
+  ];
+  return (
+    <section id="story" className="bd-story">
+      <div className="bd-section-inner">
+        <div className="bd-section-head bd-section-head--center">
+          <span className="bd-kicker">왜 만들었나요</span>
+          <h2 className="bd-h2">건강은 혼자 챙기는 것이<br/><em>아닙니다</em></h2>
+          <p className="bd-section-lead">
+            한국은 곧 초고령 사회입니다. 부모님 약을 멀리서 챙기고, 검사 결과지를 함께 해석하고,<br className="bd-hide-mobile"/>
+            식단을 같이 고민하는 일 — 그 모든 게 따로 흩어져 있다는 점에서 Bodacare가 시작되었어요.
+          </p>
+        </div>
+        <div className="bd-story-grid">
+          {principles.map((p) => (
+            <div key={p.title} className="bd-story-card">
+              <div className="bd-story-icon">{p.icon}</div>
+              <h3 className="bd-story-title">{p.title}</h3>
+              <p className="bd-story-desc">{p.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
 // How it works
 // ─────────────────────────────────────────────────────────────
 function HowItWorks() {
@@ -330,6 +377,62 @@ function HowItWorks() {
             </li>
           ))}
         </ol>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// FAQ
+// ─────────────────────────────────────────────────────────────
+function FAQ() {
+  const items = [
+    {
+      q: '부모님이 디지털에 익숙하지 않으셔도 쓸 수 있나요?',
+      a: '네. 보호자가 처방전을 사진으로 등록하면 부모님 화면엔 "수락하기" 버튼만 떠요. 복약 시간엔 알림이 오고, 한 번 탭으로 기록 완료. 화면 조작은 최소화했습니다.',
+    },
+    {
+      q: '제 건강 데이터는 누가 볼 수 있나요?',
+      a: '본인이 직접 초대한 가족만 봐요. 그리고 가족별로 보여줄 항목을 따로 정할 수 있어요 — 자녀에겐 약만, 배우자에겐 식단까지. 운영자나 외부 의료기관에 직접 공유되지 않습니다.',
+    },
+    {
+      q: '무료인가요? 결제는 어떻게 되나요?',
+      a: '핵심 기능(복약 알림 · 혈압·혈당 기록 · 가족 공유 · 검사지 보관)은 무료입니다. AI 분석(검사지 해석, 식단 분석)은 사용량 토큰 단위로, 또는 프리미엄 구독으로 무제한 이용할 수 있어요.',
+    },
+    {
+      q: '약 정보는 어디서 가져오나요?',
+      a: '식품의약품안전처(MFDS) 공식 데이터 기반입니다. 처방전을 카메라로 찍으면 약 이름·용량·복용법이 자동으로 입력돼요.',
+    },
+    {
+      q: '검사지·식단 사진을 AI에 보내도 괜찮은가요?',
+      a: '사진 원본은 운영자 서버에 저장하지 않습니다. 분석을 위해 일시적으로 전송하고, 결과 텍스트만 본인 계정에 보관해요. 자세한 처리 방식은 개인정보처리방침에 정리돼 있어요.',
+    },
+    {
+      q: 'iOS와 안드로이드 모두 지원하나요?',
+      a: '네. 두 OS 모두 지원하고, 같은 케어 그룹 안의 가족이 서로 다른 기기를 써도 데이터가 함께 동기화됩니다.',
+    },
+  ];
+  return (
+    <section id="faq" className="bd-faq">
+      <div className="bd-section-inner">
+        <div className="bd-section-head bd-section-head--center">
+          <span className="bd-kicker">자주 묻는 질문</span>
+          <h2 className="bd-h2">궁금한 점,<br/><em>먼저 풀어볼게요</em></h2>
+        </div>
+        <div className="bd-faq-list">
+          {items.map((it, i) => (
+            <details key={i} className="bd-faq-item">
+              <summary className="bd-faq-q">
+                <span>{it.q}</span>
+                <span className="bd-faq-chev" aria-hidden>+</span>
+              </summary>
+              <p className="bd-faq-a">{it.a}</p>
+            </details>
+          ))}
+        </div>
+        <p className="bd-faq-footnote">
+          더 궁금한 점은 <a href="mailto:admin@bodacare.com">admin@bodacare.com</a> 으로 보내주세요.
+        </p>
       </div>
     </section>
   );
@@ -423,8 +526,10 @@ function LandingPage() {
       <LandingNav />
       <Hero />
       <Problems />
+      <Story />
       <Features />
       <HowItWorks />
+      <FAQ />
       <FinalCTA />
       <LandingFooter />
     </div>
