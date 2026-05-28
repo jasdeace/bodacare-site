@@ -136,11 +136,11 @@ function Hero() {
             </div>
             <div className="bd-chip bd-chip--2">
               <span className="bd-chip-dot bd-chip-dot--coral"/>
-              <span>가족이 함께 확인</span>
+              <span>딸이 약 추가</span>
             </div>
             <div className="bd-chip bd-chip--3">
               <span className="bd-chip-dot bd-chip-dot--rose"/>
-              <span>AI 식단 코칭</span>
+              <span>혈압 120/80</span>
             </div>
           </div>
         </div>
