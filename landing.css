@@ -191,7 +191,7 @@
 }
 
 .bd-hero-text { max-width: 580px; }
-.bd-cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+.bd-cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; padding-bottom: 48px; }
 .bd-hero-meta { margin-top: 22px; font-size: 13px; color: var(--ink-500); display: flex; align-items: center; }
 .bd-hero-bullets {
   margin: 0; padding: 40px 0 0; list-style: none;
