@@ -5,5 +5,6 @@
 /blog/reading-lab-results     /blog-reading-lab-results      301
 /blog/inbody-explained        /blog-inbody-explained         301
 /blog/ai-and-your-health      /blog-ai-and-your-health       301
+/blog/helping-parents-use-app /blog-helping-parents-use-app  301
 
 # Legacy .html redirects are handled by Cloudflare's auto-route

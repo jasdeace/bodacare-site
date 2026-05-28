@@ -46,6 +46,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://bodacare.com/blog-helping-parents-use-app</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://bodacare.com/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
