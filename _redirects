@@ -1,10 +1,19 @@
 # Cloudflare Pages routing
-# Pretty nested blog URLs map to flat filenames
-/blog/remote-parent-meds      /blog-remote-parent-meds       301
-/blog/top-3-chronic-disease   /blog-top-3-chronic-disease    301
-/blog/reading-lab-results     /blog-reading-lab-results      301
-/blog/inbody-explained        /blog-inbody-explained         301
-/blog/ai-and-your-health      /blog-ai-and-your-health       301
-/blog/helping-parents-use-app /blog-helping-parents-use-app  301
+#
+# The six original blog posts moved from per-post HTML files into the
+# blog_posts table (rendered by /blog-post.html?slug=…). Redirect both the
+# old pretty (/blog/<slug>) and flat (/blog-<slug>) URLs to the dynamic page
+# with a 301 so existing links and search-index entries don't 404.
+/blog/remote-parent-meds       /blog-post.html?slug=remote-parent-meds        301
+/blog/top-3-chronic-disease    /blog-post.html?slug=top-3-chronic-disease     301
+/blog/reading-lab-results      /blog-post.html?slug=reading-lab-results       301
+/blog/inbody-explained         /blog-post.html?slug=inbody-explained          301
+/blog/ai-and-your-health       /blog-post.html?slug=ai-and-your-health        301
+/blog/helping-parents-use-app  /blog-post.html?slug=helping-parents-use-app   301
 
-# Legacy .html redirects are handled by Cloudflare's auto-route
+/blog-remote-parent-meds       /blog-post.html?slug=remote-parent-meds        301
+/blog-top-3-chronic-disease    /blog-post.html?slug=top-3-chronic-disease     301
+/blog-reading-lab-results      /blog-post.html?slug=reading-lab-results       301
+/blog-inbody-explained         /blog-post.html?slug=inbody-explained          301
+/blog-ai-and-your-health       /blog-post.html?slug=ai-and-your-health        301
+/blog-helping-parents-use-app  /blog-post.html?slug=helping-parents-use-app   301

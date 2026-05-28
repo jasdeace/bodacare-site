@@ -1,64 +1,14 @@
 /* global React, ReactDOM, CLMark */
-// bodacare — Blog (index + posts)
-// Each post HTML wrapper sets data-post on <html>.
-//
-// Index merges these hardcoded posts with editor-managed posts loaded from
-// Supabase (admin.bodacare.com → /blog). New posts go through the editor;
-// the six original posts below stay hardcoded so they keep their per-post
-// HTML wrappers (better SEO than the dynamic /blog-post.html?slug=… page).
+// bodacare — Blog index.
+// All posts now live in Supabase (managed via admin.bodacare.com → /blog).
+// This page fetches published posts and links each to the dynamic post
+// renderer at /blog-post.html?slug=…. There are no hardcoded posts anymore —
+// the six originals were migrated into the blog_posts table.
 
 const SUPABASE_URL = 'https://wmzochdgnujalmgnvmku.supabase.co';
 const SUPABASE_ANON =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indtem9jaGRnbnVqYWxtZ252bWt1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2OTc1ODksImV4cCI6MjA5MzI3MzU4OX0.D4T9jlofOM7wqWZ0sf15jvFWom5L3jbACSDUn7MxkT0';
 
-const POSTS = {
-  'remote-parent-meds': {
-    title: '부모님 약, 멀리서도 챙기는 5가지 방법',
-    excerpt: '주말에만 뵙는 부모님의 매일 복약, 어떻게 도울 수 있을까요? 가족이 실제로 쓰는 실용적인 방법 다섯 가지.',
-    date: '2026년 5월 28일',
-    category: '돌봄',
-    readMin: 5,
-  },
-  'top-3-chronic-disease': {
-    title: '고혈압·당뇨·고지혈증 — 우리나라 3대 만성질환 함께 관리하기',
-    excerpt: '65세 이상의 80% 이상이 보유한 만성질환. 가족이 함께 관리할 때 결과가 달라집니다.',
-    date: '2026년 5월 27일',
-    category: '건강 지식',
-    readMin: 6,
-  },
-  'reading-lab-results': {
-    title: '검사 결과지, 어디까지 알아야 할까?',
-    excerpt: '병원에서 받아온 종이 한 장의 숫자들 — 정상 범위, 우려할 수치, 그리고 AI가 도와줄 수 있는 부분.',
-    date: '2026년 5월 26일',
-    category: '건강 지식',
-    readMin: 7,
-  },
-  'inbody-explained': {
-    title: '인바디 결과 100% 활용법 — 골격근·체지방·체수분',
-    excerpt: '한 번 측정하면 끝이 아닌, 추세로 봐야 진짜인 인바디. 핵심 수치 세 가지와 변화 해석법.',
-    date: '2026년 5월 25일',
-    category: '건강 지식',
-    readMin: 6,
-  },
-  'ai-and-your-health': {
-    title: 'AI에게 내 건강을 물어봐도 될까요? 안전한 사용법',
-    excerpt: 'AI 검사 해석과 식단 분석 — 어디까지 믿고, 어디서부터 의사에게 가야 하는지에 대한 가이드.',
-    date: '2026년 5월 24일',
-    category: '디지털 헬스',
-    readMin: 5,
-  },
-  'helping-parents-use-app': {
-    title: '디지털 어색하신 부모님께 앱 설명하기 — 5단계 가이드',
-    excerpt: '스마트폰 자체가 어려운 부모님께 건강 앱을 자연스럽게 권하는 법. 자녀가 함께 설정하는 과정 전체.',
-    date: '2026년 5월 23일',
-    category: '돌봄',
-    readMin: 7,
-  },
-};
-
-// ─────────────────────────────────────────────────────────────
-// Layout
-// ─────────────────────────────────────────────────────────────
 function BlogLayout({ title, children }) {
   React.useEffect(() => {
     document.title = title ? `${title} · bodacare 블로그` : '블로그 · bodacare';
@@ -77,9 +27,7 @@ function BlogLayout({ title, children }) {
 
       <main className="bd-legal-main">
         <div className="bd-legal-doc">
-          <div className="bd-legal-card">
-            {children}
-          </div>
+          <div className="bd-legal-card">{children}</div>
         </div>
       </main>
 
@@ -97,66 +45,16 @@ function BlogLayout({ title, children }) {
   );
 }
 
-function PostHeader({ title, date, category, readMin }) {
-  return (
-    <>
-      <div className="bd-legal-kicker">{category}</div>
-      <h1 className="bd-legal-title">{title}</h1>
-      <div className="bd-legal-meta">
-        <span><strong>발행</strong> · {date}</span>
-        <span><strong>읽는 시간</strong> · 약 {readMin}분</span>
-      </div>
-    </>
-  );
+function formatKoDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`;
 }
 
-// Shows 2 other posts at the bottom of every post — keeps readers in the blog.
-function RelatedPosts({ currentSlug }) {
-  const others = Object.entries(POSTS).filter(([slug]) => slug !== currentSlug).slice(0, 2);
-  return (
-    <div style={{
-      marginTop: 40,
-      paddingTop: 28,
-      borderTop: '1px solid var(--line-soft)',
-    }}>
-      <div style={{ fontSize: 12, color: 'var(--ink-500)', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 14 }}>
-        더 읽어볼 만한 글
-      </div>
-      <div style={{ display: 'grid', gap: 12 }}>
-        {others.map(([slug, p]) => (
-          <a key={slug} href={`/blog-${slug}`} style={{
-            display: 'block', padding: '16px 18px',
-            background: 'var(--cream-50)',
-            border: '1px solid var(--line-soft)',
-            borderRadius: 14,
-            textDecoration: 'none', color: 'inherit',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11.5, color: 'var(--ink-500)', marginBottom: 4 }}>
-              <span style={{ padding: '2px 8px', background: 'var(--teal-100)', color: 'var(--teal-800)', borderRadius: 999, fontWeight: 700, fontSize: 10.5 }}>{p.category}</span>
-              <span>{p.date}</span>
-            </div>
-            <div style={{ fontSize: 15.5, fontWeight: 600, letterSpacing: '-0.01em', lineHeight: 1.35 }}>{p.title}</div>
-          </a>
-        ))}
-        <a href="/blog" style={{
-          textAlign: 'center', padding: '10px 0',
-          fontSize: 13, color: 'var(--teal-700)',
-          textDecoration: 'none', fontWeight: 600,
-        }}>블로그 전체 보기 →</a>
-      </div>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// Index
-// ─────────────────────────────────────────────────────────────
 function BlogIndex() {
-  // Hardcoded + DB posts, sorted by date descending. Hardcoded items use
-  // their per-post HTML wrappers (better SEO); DB items use the dynamic
-  // /blog-post.html?slug=… route. Date strings differ in shape, so we use
-  // sortable_at (epoch ms) computed below.
-  const [dbPosts, setDbPosts] = React.useState([]);
+  const [posts, setPosts] = React.useState(null); // null = loading, [] = empty
+  const [error, setError] = React.useState(false);
+
   React.useEffect(() => {
     fetch(
       `${SUPABASE_URL}/rest/v1/blog_posts?published=eq.true&select=slug,title,excerpt,category,read_min,published_at&order=published_at.desc`,
@@ -168,41 +66,9 @@ function BlogIndex() {
       },
     )
       .then((r) => r.json())
-      .then((rows) => Array.isArray(rows) && setDbPosts(rows))
-      .catch(() => {});
+      .then((rows) => setPosts(Array.isArray(rows) ? rows : []))
+      .catch(() => setError(true));
   }, []);
-
-  // Build a unified list. Hardcoded items have date as a Korean string
-  // ("2026년 5월 28일") — parse to epoch for sorting.
-  function parseKoDate(s) {
-    const m = s.match(/(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일/);
-    return m ? new Date(+m[1], +m[2] - 1, +m[3]).getTime() : 0;
-  }
-  const all = [
-    ...Object.entries(POSTS).map(([slug, p]) => ({
-      slug,
-      title: p.title,
-      excerpt: p.excerpt,
-      category: p.category,
-      readMin: p.readMin,
-      dateLabel: p.date,
-      href: `/blog-${slug}`,
-      sortAt: parseKoDate(p.date),
-    })),
-    ...dbPosts.map((p) => {
-      const d = p.published_at ? new Date(p.published_at) : new Date();
-      return {
-        slug: p.slug,
-        title: p.title,
-        excerpt: p.excerpt,
-        category: p.category,
-        readMin: p.read_min,
-        dateLabel: `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`,
-        href: `/blog-post.html?slug=${encodeURIComponent(p.slug)}`,
-        sortAt: d.getTime(),
-      };
-    }),
-  ].sort((a, b) => b.sortAt - a.sortAt);
 
   return (
     <BlogLayout>
@@ -213,29 +79,43 @@ function BlogIndex() {
       </div>
 
       <div className="bd-legal-body">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-          {all.map((p) => (
-            <a key={p.slug} href={p.href} style={{
-              display: 'block', padding: '22px 24px',
-              background: 'var(--cream-50)',
-              border: '1px solid var(--line-soft)',
-              borderRadius: 18,
-              textDecoration: 'none', color: 'inherit',
-              transition: 'transform 180ms ease, border-color 180ms ease',
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--teal-300)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--line-soft)'; e.currentTarget.style.transform = 'translateY(0)'; }}
-            >
-              <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 8, fontSize: 12, color: 'var(--ink-500)' }}>
-                {p.category && <span style={{ padding: '3px 10px', background: 'var(--teal-100)', color: 'var(--teal-800)', borderRadius: 999, fontWeight: 700, fontSize: 11 }}>{p.category}</span>}
-                <span>{p.dateLabel}</span>
-                {p.readMin && <><span>·</span><span>{p.readMin}분</span></>}
-              </div>
-              <h3 style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 8, lineHeight: 1.3 }}>{p.title}</h3>
-              <p style={{ fontSize: 14, color: 'var(--ink-500)', lineHeight: 1.65 }}>{p.excerpt}</p>
-            </a>
-          ))}
-        </div>
+        {error && (
+          <p style={{ color: 'var(--ink-500)' }}>
+            글을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.
+          </p>
+        )}
+        {posts === null && !error && (
+          <p style={{ color: 'var(--ink-500)' }}>불러오는 중…</p>
+        )}
+        {posts && posts.length === 0 && (
+          <p style={{ color: 'var(--ink-500)' }}>아직 발행된 글이 없습니다.</p>
+        )}
+
+        {posts && posts.length > 0 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+            {posts.map((p) => (
+              <a key={p.slug} href={`/blog-post.html?slug=${encodeURIComponent(p.slug)}`} style={{
+                display: 'block', padding: '22px 24px',
+                background: 'var(--cream-50)',
+                border: '1px solid var(--line-soft)',
+                borderRadius: 18,
+                textDecoration: 'none', color: 'inherit',
+                transition: 'transform 180ms ease, border-color 180ms ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--teal-300)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--line-soft)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+              >
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 8, fontSize: 12, color: 'var(--ink-500)' }}>
+                  {p.category && <span style={{ padding: '3px 10px', background: 'var(--teal-100)', color: 'var(--teal-800)', borderRadius: 999, fontWeight: 700, fontSize: 11 }}>{p.category}</span>}
+                  <span>{formatKoDate(p.published_at)}</span>
+                  {p.read_min && <><span>·</span><span>{p.read_min}분</span></>}
+                </div>
+                <h3 style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 8, lineHeight: 1.3 }}>{p.title}</h3>
+                {p.excerpt && <p style={{ fontSize: 14, color: 'var(--ink-500)', lineHeight: 1.65 }}>{p.excerpt}</p>}
+              </a>
+            ))}
+          </div>
+        )}
 
         <h2 style={{ marginTop: 36 }}>구독 안내</h2>
         <p>
@@ -247,515 +127,4 @@ function BlogIndex() {
   );
 }
 
-// ─────────────────────────────────────────────────────────────
-// Post: Remote parent meds
-// ─────────────────────────────────────────────────────────────
-function PostRemoteParentMeds() {
-  const p = POSTS['remote-parent-meds'];
-  return (
-    <BlogLayout title={p.title}>
-      <PostHeader {...p} />
-      <div className="bd-legal-body">
-        <p>
-          부모님이 약을 잘 챙겨 드시는지, 멀리 사는 자녀 입장에선 늘 마음에 걸립니다. 매일 전화해서
-          물어볼 수도 없고, 부모님께서 "다 먹었다"고 하셔도 정말 그런지 확인할 길이 없습니다.
-          65세 이상의 만성질환 보유율은 80%가 넘고, 평균 4가지 이상의 약을 복용한다는 통계도
-          있습니다. 약 한 번 빠뜨리는 것이 큰 사건은 아니지만, 매일 반복되면 혈압·혈당·콜레스테롤
-          조절에 직접 영향을 줍니다.
-        </p>
-        <p>아래는 실제 가족들이 부모님 복약을 멀리서 챙기기 위해 쓰는 방법 다섯 가지입니다.</p>
-
-        <h2>1. 처방전 사진 한 장으로 약 정보 정리</h2>
-        <p>
-          부모님이 병원에서 받아오신 처방전을 카메라로 찍으면 약 이름·용량·복용 시간을 자동으로
-          정리할 수 있는 앱들이 있습니다. 약통 라벨을 일일이 옮겨 적을 필요가 없고, 약 이름의
-          한자나 영문 명칭을 헷갈릴 일도 줄어듭니다. Bodacare는 식약처(MFDS) 공식 약품 데이터를
-          기반으로 매칭하기 때문에 약품명·효능·주의사항이 자동으로 채워집니다.
-        </p>
-
-        <h2>2. 복용 시간 알림은 본인 휴대폰에</h2>
-        <p>
-          가장 흔한 실패 패턴은 "약을 어디 두었는지 잊으셨다"가 아니라 "약을 챙기실 시간을
-          잊으셨다"입니다. 시간이 되면 본인 휴대폰에서 부드러운 알림이 한 번. "지금 복용" 버튼만
-          누르면 기록이 끝납니다. 부모님이 디지털에 익숙하지 않으셔도 부담 없이 쓸 수 있어야 합니다.
-        </p>
-
-        <h2>3. 가족이 함께 보는 시스템</h2>
-        <p>
-          제가 부모님과 떨어져 살더라도, 부모님이 오늘 약을 드셨는지 제 화면에서 바로 확인할 수
-          있어야 합니다. Bodacare의 "케어 그룹" 기능은 본인이 직접 초대한 가족만 데이터를 볼 수
-          있게 해주고, 가족별로 공개 범위(약·혈압·식단)를 따로 정할 수 있습니다. 자녀에게는 약과
-          혈압만, 배우자에게는 식단까지 — 식의 세분화가 가능합니다.
-        </p>
-
-        <h2>4. 놓친 약은 "재촉하기"로 한 번에</h2>
-        <p>
-          복용 시간이 지났는데 기록이 없으면, 자녀 측에서 한 번의 탭으로 "약 챙기실 시간이에요"
-          알림을 부모님께 보낼 수 있습니다. 잔소리처럼 들리지 않게, 시스템을 통한 부드러운 알림으로요.
-          이 작은 안전망이 매일의 복약률을 크게 끌어올립니다.
-        </p>
-
-        <h2>5. 검사 결과·혈압도 같이 추적</h2>
-        <p>
-          약만 챙기는 것으로는 부족합니다. 매주 측정하는 혈압, 분기마다 받는 검사 결과지 — 이
-          모든 게 한 곳에 모여 추세를 보여야 합니다. 약을 잘 드시는데 혈압이 올라가고 있다면, 그건
-          약 효과가 떨어지거나 다른 원인이 생긴 것일 수 있습니다. 변화를 일찍 알아채는 게 멀리
-          사는 가족이 할 수 있는 가장 중요한 일입니다.
-        </p>
-
-        <h2>한 가지 더 — 부모님을 주체로</h2>
-        <p>
-          이 모든 시스템의 핵심 원칙: <strong>부모님이 데이터의 주인</strong>이라는 점입니다. 자녀가
-          모든 걸 보고 통제하는 것이 아니라, 부모님이 "이 자료는 보여드려도 된다"고 정해주신 만큼만
-          공유됩니다. 존엄을 지키면서 함께 챙기는 것 — 이게 진짜 돌봄입니다.
-        </p>
-
-        <p style={{ marginTop: 28, padding: '16px 20px', background: 'var(--teal-50, var(--cream-100))', borderRadius: 14, border: '1px solid var(--line-soft)', fontSize: 14 }}>
-          <strong>Bodacare에서 해볼 수 있는 것</strong>: 처방전 자동 입력, 보호자가 약 등록 → 본인이 수락, 가족 실시간 복용 확인, 약 복용 재촉, 검사 결과 OCR + AI 해석.
-          <br/><a href="/" style={{ color: 'var(--teal-700)', fontWeight: 600 }}>앱 자세히 보기 →</a>
-        </p>
-
-        <RelatedPosts currentSlug="remote-parent-meds" />
-      </div>
-    </BlogLayout>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// Post: 3 chronic diseases
-// ─────────────────────────────────────────────────────────────
-function PostTop3Chronic() {
-  const p = POSTS['top-3-chronic-disease'];
-  return (
-    <BlogLayout title={p.title}>
-      <PostHeader {...p} />
-      <div className="bd-legal-body">
-        <p>
-          국민건강보험공단 자료에 따르면, 65세 이상 약 80%가 한 가지 이상의 만성질환을 가지고
-          있고, 절반 가까이는 두 가지 이상을 동시에 앓고 있습니다. 그중 가장 흔한 세 가지는
-          <strong> 고혈압·당뇨·고지혈증</strong>입니다. 이 세 질환은 따로 보이지만 서로 깊이 연결돼
-          있고, 관리 방식도 비슷합니다.
-        </p>
-
-        <h2>고혈압 — 조용한 위험</h2>
-        <p>
-          정상 혈압은 수축기 120 미만 / 이완기 80 미만 (mmHg). 140/90 이상이면 고혈압으로 진단됩니다.
-          증상이 거의 없어서 "조용한 살인자"로 불리지만, 방치하면 뇌졸중·심근경색·신부전의 위험을
-          크게 높입니다. 관리의 핵심은 <strong>매일 같은 시간 측정 → 추세 관찰 → 약 꾸준히 복용</strong>
-          입니다. 한 번 측정한 수치보다 일주일 평균이 더 의미가 있습니다.
-        </p>
-
-        <h2>당뇨 — 식사가 곧 치료</h2>
-        <p>
-          공복혈당 100 미만이 정상, 126 이상이면 당뇨로 진단됩니다. 당뇨는 약만으로 관리되지 않습니다.
-          <strong> 식사·운동·약</strong> 세 가지가 같이 가야 효과가 납니다. 특히 식단은 한 끼만
-          잘못 먹어도 혈당이 크게 출렁입니다. AI 식단 분석을 활용하면 "이 음식이 얼마나 혈당을
-          올릴지" 미리 알 수 있어요. 가족이 함께 식단을 보는 것이 큰 도움이 됩니다.
-        </p>
-
-        <h2>고지혈증 — 검사 수치로 발견</h2>
-        <p>
-          증상이 거의 없습니다. 보통 건강검진에서 LDL 콜레스테롤(나쁜 콜레스테롤)이 130 이상으로
-          나오면 의심합니다. 160 이상이면 약물 치료 대상이 됩니다. 식사 조절(포화지방·트랜스지방
-          줄이기)과 유산소 운동이 기본이고, 필요하면 스타틴 계열 약을 평생 복용합니다. 약 복용
-          누락이 가장 큰 위험 요인입니다.
-        </p>
-
-        <h2>세 질환의 공통점 — 그리고 가족이 할 수 있는 일</h2>
-        <p>
-          이 세 가지는 모두 (1) 증상이 거의 없고 (2) 매일 관리가 필요하고 (3) 약을 꾸준히 복용해야
-          하고 (4) 검사 수치로 결과를 확인합니다. 즉, <strong>본인 혼자 매일 챙기기 힘든
-          구조</strong>입니다. 부모님이 이 세 가지 중 하나라도 있다면, 자녀가 옆에서 같이
-          보는 것만으로도 결과가 달라집니다.
-        </p>
-
-        <h2>실제 사례 — 함께 보면 빨리 알아챕니다</h2>
-        <p>
-          어느 가족의 이야기입니다. 어머니가 평소 혈압이 120/80으로 안정적이셨는데, 어느 날부터
-          135/88로 조금씩 올라가기 시작했습니다. 어머니 본인은 "그 정도면 괜찮다"고 하셨지만,
-          앱에서 추세를 보던 딸이 "이거 지난 2주 동안 계속 올라가요"라고 발견. 병원에 가서 약 용량
-          조절을 받았고 다시 안정화됐습니다. 혼자 보면 그날그날 숫자, 함께 보면 추세가 보입니다.
-        </p>
-
-        <h2>핵심 정리</h2>
-        <ul>
-          <li>이 세 질환의 80%는 약·식단·운동의 일상 관리로 컨트롤 가능합니다</li>
-          <li>매일의 작은 데이터가 모이면 추세가 보입니다 — 한 번의 수치보다 일주일 평균</li>
-          <li>가족이 함께 보면 변화를 빨리 알아챕니다</li>
-          <li>본인의 동의와 통제하에 데이터를 공유하는 것이 핵심입니다</li>
-        </ul>
-
-        <p style={{ marginTop: 28, padding: '16px 20px', background: 'var(--cream-100)', borderRadius: 14, border: '1px solid var(--line-soft)', fontSize: 14 }}>
-          <strong>⚠ 의료 면책</strong>: 이 글은 일반 정보 제공 목적이며 의료 진단·치료를 대체하지 않습니다. 진단·약 변경 등은 반드시 의료진과 상의하세요.
-        </p>
-
-        <RelatedPosts currentSlug="top-3-chronic-disease" />
-      </div>
-    </BlogLayout>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// Post: Reading lab results
-// ─────────────────────────────────────────────────────────────
-function PostReadingLabResults() {
-  const p = POSTS['reading-lab-results'];
-  return (
-    <BlogLayout title={p.title}>
-      <PostHeader {...p} />
-      <div className="bd-legal-body">
-        <p>
-          병원에서 받아온 검사 결과지 한 장. 수십 개의 영어 약자와 숫자들. "정상"이라고 적혀
-          있어도 어디가 어떻게 정상인지, 무엇을 조심해야 하는지 막막합니다. 의사 선생님은 한 줄로
-          요약해 주시지만, 집에 와서 자료를 다시 보면 또 모릅니다. 검사 결과지의 핵심 수치 몇 가지를
-          알면, 이 막막함이 줄어듭니다.
-        </p>
-
-        <h2>꼭 알아야 할 핵심 수치</h2>
-
-        <h3>혈압</h3>
-        <p>
-          <strong>정상</strong> 120/80 mmHg 미만 · <strong>주의</strong> 120-139 / 80-89 ·
-          <strong>고혈압</strong> 140/90 이상.
-          앞 숫자는 수축기(심장이 짤 때), 뒤는 이완기(쉴 때) 압력입니다. 한 번 높다고 고혈압이
-          아니라 여러 번 측정해서 평균을 봅니다.
-        </p>
-
-        <h3>공복혈당</h3>
-        <p>
-          <strong>정상</strong> 100 mg/dL 미만 · <strong>당뇨 전 단계</strong> 100-125 ·
-          <strong>당뇨</strong> 126 이상.
-          공복 8시간 후 측정한 혈당입니다. 식후 2시간 혈당, 당화혈색소(HbA1c)와 함께 봐야 정확해요.
-        </p>
-
-        <h3>당화혈색소 (HbA1c)</h3>
-        <p>
-          <strong>정상</strong> 5.7% 미만 · <strong>당뇨 전</strong> 5.7-6.4 · <strong>당뇨</strong> 6.5% 이상.
-          지난 2-3개월 동안의 평균 혈당 상태를 보여주는 수치입니다. 한 번의 혈당보다 추세를
-          잘 반영해서, 당뇨 관리에서 가장 중요한 지표입니다.
-        </p>
-
-        <h3>콜레스테롤 (지질 검사)</h3>
-        <p>
-          <strong>총 콜레스테롤</strong> 200 mg/dL 미만 정상 · <strong>LDL(나쁜)</strong> 130 미만 ·
-          <strong>HDL(좋은)</strong> 60 이상 · <strong>중성지방</strong> 150 미만.
-          LDL이 높을수록 동맥경화·심근경색 위험이 올라갑니다. 반대로 HDL은 높을수록 좋아요.
-        </p>
-
-        <h3>신장 기능 (eGFR · 크레아티닌)</h3>
-        <p>
-          <strong>eGFR 정상</strong> 90 이상 · <strong>경증 저하</strong> 60-89 · <strong>심각</strong> 60 미만.
-          신장이 노폐물을 거르는 능력을 수치화한 것입니다. 60 미만으로 떨어지면 만성 신장병으로
-          분류돼 약 용량 조절이 필요할 수 있습니다.
-        </p>
-
-        <h3>간 기능 (AST · ALT)</h3>
-        <p>
-          <strong>정상</strong> 둘 다 40 U/L 미만 (검사실마다 약간 다름).
-          간 세포가 손상되면 올라가는 수치입니다. 술·약·간염·지방간 등이 원인이 될 수 있어요.
-          한 번 높다고 큰일 난 게 아니라, 재검에서도 계속 높으면 정밀 검사로 넘어갑니다.
-        </p>
-
-        <h2>"정상"이 항상 안심은 아닙니다</h2>
-        <p>
-          모든 수치가 "정상 범위" 안에 있어도, <strong>지난 검사보다 크게 변했다면</strong> 주목해야
-          합니다. 예를 들어 작년 LDL이 90이었는데 올해 125라면, 둘 다 "정상" 범위지만 35만큼
-          올라간 변화 자체가 의미 있는 신호입니다. 그래서 검사 결과는 한 장으로 보지 않고
-          시간 순서대로 모아 보는 게 중요해요.
-        </p>
-
-        <h2>AI가 도와줄 수 있는 부분</h2>
-        <p>
-          Bodacare에서는 검사 결과지를 카메라로 찍으면 자동으로 수치를 정리해주고, AI가 "지난번
-          대비 어떻게 변했는지, 이 수치가 무엇을 의미하는지, 무엇을 주의해야 하는지"를 대화로
-          설명해 드립니다. 의료 진단을 대신하는 건 아니지만, 막막한 자료지를 푸는 첫걸음으로는
-          큰 도움이 됩니다.
-        </p>
-
-        <h2>마지막으로 — 의사를 대체할 수 없습니다</h2>
-        <p>
-          이 글의 모든 수치 범위는 일반적인 기준이며, 사람마다·검사실마다 약간 다를 수 있습니다.
-          나이·기저질환·복용 중인 약에 따라 해석도 달라집니다. 본인의 결과는 반드시 진료 의사와
-          상의하시고, AI나 인터넷 자료는 어디까지나 보조용임을 잊지 마세요.
-        </p>
-
-        <p style={{ marginTop: 28, padding: '16px 20px', background: 'var(--cream-100)', borderRadius: 14, border: '1px solid var(--line-soft)', fontSize: 14 }}>
-          <strong>⚠ 의료 면책</strong>: 이 글은 일반 정보 제공 목적이며 의료 진단·치료를 대체하지 않습니다. 진단·약 변경 등은 반드시 의료진과 상의하세요.
-        </p>
-
-        <RelatedPosts currentSlug="reading-lab-results" />
-      </div>
-    </BlogLayout>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// Post: InBody explained
-// ─────────────────────────────────────────────────────────────
-function PostInBodyExplained() {
-  const p = POSTS['inbody-explained'];
-  return (
-    <BlogLayout title={p.title}>
-      <PostHeader {...p} />
-      <div className="bd-legal-body">
-        <p>
-          헬스장·약국·동네 사거리에서 인바디(InBody) 기계를 어디서든 만납니다. 한 번 측정하면
-          A4 한 장에 빼곡한 결과지가 나옵니다. 체중·체지방·근육량·체수분·BMI·기초대사량 — 어떤
-          숫자를 봐야 할까요? 그리고 더 중요한 건, 그 숫자가 <strong>지난번보다 어떻게 변했는가</strong>
-          입니다.
-        </p>
-
-        <h2>핵심 수치 세 가지</h2>
-
-        <h3>1. 골격근량 (kg)</h3>
-        <p>
-          움직임을 만드는 근육 무게입니다. 같은 체중이어도 골격근량이 많을수록 기초대사량이 높고,
-          체지방이 잘 안 쌓이며, 노년기 낙상 위험이 줄어듭니다. 성인 남성 평균 약 30-33kg,
-          여성 약 22-25kg. <strong>나이 들수록 자연스럽게 줄어드는 게 정상</strong>이지만, 운동
-          없이는 매년 0.5-1% 정도 줄어듭니다. 유지·증가가 목표예요.
-        </p>
-
-        <h3>2. 체지방률 (%)</h3>
-        <p>
-          전체 체중 중 체지방의 비율. <strong>남성 정상</strong> 10-20% · <strong>여성 정상</strong>
-          18-28%. 같은 체중·BMI여도 체지방률이 낮으면 더 건강한 몸입니다. 다이어트할 때 체중이
-          줄어도 체지방률이 그대로면 근육이 함께 빠진 것 — 안 좋은 신호입니다.
-        </p>
-
-        <h3>3. 체수분 (kg, %)</h3>
-        <p>
-          몸 안의 물 무게. 체수분율은 보통 <strong>남성 55-65%, 여성 50-60%</strong>. 갑자기 떨어졌다면
-          탈수, 갑자기 올라갔다면 부종을 의심합니다. 신장이 안 좋은 분, 심장 약을 드시는 분은
-          체수분 변화를 자주 봐야 합니다.
-        </p>
-
-        <h2>BMI는 충분하지 않아요</h2>
-        <p>
-          BMI(체질량지수)는 키와 체중만 보는 단순 지표입니다. 근육이 많은 사람은 BMI가 "비만"이어도
-          실제로는 건강한 경우가 많습니다. 인바디의 의미는 <strong>체중을 근육·지방·물·뼈로 쪼개서
-          본다</strong>는 점에 있어요. BMI만으로 "체중을 줄여야 한다"고 결론 내리지 마세요.
-        </p>
-
-        <h2>한 번이 아닌, 추세로 봐야 합니다</h2>
-        <p>
-          한 번 측정한 결과로 판단하기 어렵습니다. 측정 시간, 식사 여부, 운동 직후 여부에 따라
-          체수분이 0.5-1kg씩 출렁이고, 그 영향으로 다른 수치도 흔들립니다. <strong>2주에 한 번씩
-          같은 시간·같은 조건으로 측정</strong>해서 3-6개월 추세를 봐야 진짜 변화가 보입니다.
-        </p>
-
-        <h2>다이어트할 때 보면 좋은 패턴</h2>
-        <ul>
-          <li><strong>이상적</strong>: 체중 ↓ + 골격근량 유지 + 체지방률 ↓</li>
-          <li><strong>흔한 실패</strong>: 체중 ↓ + 골격근량 ↓ + 체지방률 비슷 (근육이 같이 빠짐)</li>
-          <li><strong>리컴포지션</strong>: 체중 비슷 + 골격근량 ↑ + 체지방률 ↓ (느리지만 가장 건강함)</li>
-        </ul>
-
-        <h2>Bodacare에서 추적하는 방법</h2>
-        <p>
-          인바디 결과지를 카메라로 찍으면 골격근·체지방·체수분이 자동으로 정리됩니다. 측정할 때마다
-          쌓이면서 그래프로 보이고, 목표 체중·체지방률을 설정해두면 매일 식단과 함께 추적해
-          드려요. AI에게 "이번 결과 어떤가요?"라고 물으면 지난번 대비 어떻게 변했는지 짚어 줍니다.
-        </p>
-
-        <p style={{ marginTop: 28, padding: '16px 20px', background: 'var(--cream-100)', borderRadius: 14, border: '1px solid var(--line-soft)', fontSize: 14 }}>
-          <strong>⚠ 의료 면책</strong>: 이 글은 일반 정보 제공 목적이며 의료 진단·치료를 대체하지 않습니다. 영양·운동·체형 관련 진단은 반드시 전문가와 상의하세요.
-        </p>
-
-        <RelatedPosts currentSlug="inbody-explained" />
-      </div>
-    </BlogLayout>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// Post: AI and your health
-// ─────────────────────────────────────────────────────────────
-function PostAIAndYourHealth() {
-  const p = POSTS['ai-and-your-health'];
-  return (
-    <BlogLayout title={p.title}>
-      <PostHeader {...p} />
-      <div className="bd-legal-body">
-        <p>
-          요즘 누구나 ChatGPT에게 검사 결과를 물어봅니다. "내 LDL 142가 위험한가요?" "이 약과 저
-          약을 같이 먹어도 되나요?" — 편하긴 한데, 안전할까요? 결론부터: <strong>참고로는 좋고,
-          치료 결정에는 절대 안 됩니다.</strong>
-        </p>
-
-        <h2>AI가 잘하는 부분</h2>
-        <ul>
-          <li><strong>용어 풀이</strong> — "eGFR이 뭔가요?" "HbA1c가 뭔가요?" 같은 사전적 설명</li>
-          <li><strong>일반적 정상 범위</strong> — 검사지에 적힌 숫자가 일반 기준에서 어디쯤인지</li>
-          <li><strong>방향성 안내</strong> — "이 수치가 높으면 어떤 위험과 연관되는지" 같은 일반 정보</li>
-          <li><strong>다음 질문 정리</strong> — 의사에게 무엇을 물어볼지, 진료 전 준비에 도움</li>
-        </ul>
-
-        <h2>AI가 절대 못하는 부분</h2>
-        <ul>
-          <li><strong>진단</strong> — "당신은 당뇨입니다" 같은 결론은 의사만 할 수 있어요</li>
-          <li><strong>약 처방·용량 조절</strong> — 복용 중인 약, 신장·간 상태, 알레르기 모든 걸 알 수 없어요</li>
-          <li><strong>응급 판단</strong> — 가슴 통증·심한 두통·혈변은 AI에게 묻지 말고 즉시 응급실</li>
-          <li><strong>희귀·복합 사례</strong> — 일반 패턴 학습이라 드문 케이스에 약합니다</li>
-        </ul>
-
-        <h2>안전한 AI 사용 5원칙</h2>
-        <ol>
-          <li>
-            <strong>참고용이라는 전제를 잊지 않기.</strong> AI 답변을 진단으로 받아들이지 마세요.
-            "조사 시작점"으로만 쓰세요.
-          </li>
-          <li>
-            <strong>약 변경·중단은 의사와 상의.</strong> 부작용이 의심돼도 임의로 끊지 말고 처방한
-            의사에게 먼저 묻습니다.
-          </li>
-          <li>
-            <strong>이상 신호는 사람에게.</strong> "수치가 안 좋아 보입니다"라는 AI 응답이 나오면
-            AI에게 더 묻지 말고 병원 예약하세요.
-          </li>
-          <li>
-            <strong>맥락을 같이 입력.</strong> 나이·기저질환·복용 약을 함께 알려야 일반론에서 그나마
-            의미있는 답이 나옵니다.
-          </li>
-          <li>
-            <strong>민감 데이터는 신뢰할 수 있는 서비스로.</strong> 어디든 검사지 사진을 올리기보다
-            개인정보·민감정보 처리방침이 명확한 곳을 쓰세요.
-          </li>
-        </ol>
-
-        <h2>Bodacare가 AI를 다루는 방식</h2>
-        <p>
-          Bodacare의 AI 건강 도우미는 같은 원칙을 따릅니다. 검사 결과지·식단 사진을 분석해 드리지만,
-          모든 응답 끝에 "전문 의료진과 상의가 필요합니다"라는 안내가 포함됩니다. 사진 원본은
-          저장하지 않고, 텍스트 결과만 본인 계정에 남깁니다. 진단을 대체하는 게 아니라, 의사
-          만나기 전에 자료를 푸는 것 — 그 자리에서 멈추도록 설계했어요.
-        </p>
-
-        <h2>응급 신호 — AI에게 묻지 마세요</h2>
-        <p>
-          다음은 AI 대신 즉시 119 또는 응급실로 가야 하는 신호입니다:
-        </p>
-        <ul>
-          <li>가슴 통증, 호흡 곤란, 한쪽 팔·다리 마비</li>
-          <li>심한 두통, 갑작스러운 시야 흐림·말 어눌함</li>
-          <li>의식 저하, 경련</li>
-          <li>혈변·토혈, 갑작스러운 심한 복통</li>
-          <li>약 과다 복용이 의심될 때</li>
-        </ul>
-
-        <p style={{ marginTop: 28, padding: '16px 20px', background: 'var(--cream-100)', borderRadius: 14, border: '1px solid var(--line-soft)', fontSize: 14 }}>
-          <strong>⚠ 의료 면책</strong>: 이 글은 일반 정보 제공 목적이며 의료 진단·치료를 대체하지 않습니다. 건강에 관한 의사 결정은 반드시 전문 의료진과 상의하세요.
-        </p>
-
-        <RelatedPosts currentSlug="ai-and-your-health" />
-      </div>
-    </BlogLayout>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// Post: Helping parents use the app
-// ─────────────────────────────────────────────────────────────
-function PostHelpingParentsUseApp() {
-  const p = POSTS['helping-parents-use-app'];
-  return (
-    <BlogLayout title={p.title}>
-      <PostHeader {...p} />
-      <div className="bd-legal-body">
-        <p>
-          "엄마, 이 앱 한번 깔아봐요"라고 말씀드리면 보통 두 가지 반응이 돌아옵니다. "내가 어떻게
-          그런 걸 해" 아니면 "괜찮아, 지금도 잘 살아". 거절하시는 게 아니라, 새로운 도구를 익히는
-          부담이 크게 느껴지시는 것입니다. 자녀가 옆에서 함께 설정해 드리면 이야기가 달라집니다.
-          아래는 디지털에 어색하신 부모님께 Bodacare(나 다른 건강 앱)를 자연스럽게 권하는 5단계
-          가이드입니다.
-        </p>
-
-        <h2>1단계 — 왜 쓰는지부터 짧게</h2>
-        <p>
-          앱 화면을 먼저 보여드리지 마세요. "엄마 약 빠뜨리실 때마다 걱정돼서, 제 폰에서도 보고
-          싶어요" 같은 <strong>왜</strong>를 먼저. 부모님은 "딸이 걱정하니까"라는 동기로 시작하시지,
-          "기능이 좋아서" 시작하지 않으십니다. 자녀의 마음이 시작 동기예요.
-        </p>
-
-        <h2>2단계 — 자녀가 먼저 깔아두고 설정</h2>
-        <p>
-          부모님 폰에 앱을 설치하는 건 가장 큰 진입 장벽입니다. 다음 명절·주말 방문 때 자녀가
-          직접 부모님 폰을 받아 깔아드리세요. 가입·전화번호 인증·이름 등록까지 30초면 끝납니다.
-          이 과정을 부모님께 "선물 받는 것처럼" 만들어 드리는 게 좋아요.
-        </p>
-
-        <h2>3단계 — 약은 자녀가 미리 등록</h2>
-        <p>
-          부모님께 처방전을 받아 자녀가 보호자 계정으로 약을 등록하세요. 부모님 화면엔 "딸이 약을
-          추가했어요. <strong>수락</strong>"이라는 버튼만 한 번 누르시면 됩니다. 한 번의 탭으로
-          시작. 이게 Bodacare의 보호자→본인 흐름이 만들어지는 이유입니다.
-        </p>
-
-        <h2>4단계 — 첫 알림은 자녀가 옆에 있을 때</h2>
-        <p>
-          앱을 깔자마자 부모님을 혼자 두지 마세요. 첫 복약 알림이 울릴 때 자녀가 옆에 있어야
-          합니다. "이렇게 알림이 와요. 약 드시고 '지금 복용' 한 번 누르시면 끝이에요." 두세 번
-          같이 해보시면 손에 익습니다. 디지털 학습은 한 번에 안 되고, <strong>반복으로 손에
-          들어옵니다</strong>.
-        </p>
-
-        <h2>5단계 — "잘 하시네요"를 자주</h2>
-        <p>
-          첫 일주일은 가능하면 매일 짧게 통화하면서 "오늘도 잘 챙겨 드셨네"라고 말해 드리세요. 앱이
-          알림을 보내는 것보다 가족의 말이 더 강력합니다. 일주일이 지나면 부모님께서 스스로 챙기시기
-          시작합니다. 더 이상 "딸이 시킨 일"이 아니라 "내 일"이 되는 거죠.
-        </p>
-
-        <h2>흔히 만나는 장벽 — 그리고 답</h2>
-
-        <h3>"알림이 안 들려요"</h3>
-        <p>
-          폰 설정 → 알림 → 해당 앱 → 권한 켜기 + 소리 크게. 안드로이드라면 배터리 최적화 설정에서
-          이 앱을 "제한 없음"으로 바꿔주세요. 한 번만 자녀가 같이 해드리면 됩니다.
-        </p>
-
-        <h3>"이 약은 누가 추가한 거지?"</h3>
-        <p>
-          헷갈리지 않게, 약 카드에 보호자 이름이 작게 표시됩니다. "딸이 추가" 같은 표시로 본인이
-          항상 출처를 알 수 있어요. 모르는 약이 보이면 자녀에게 확인하시면 됩니다.
-        </p>
-
-        <h3>"왜 자꾸 폰을 보라고 해?"</h3>
-        <p>
-          앱을 자주 보실 필요는 없습니다. 알림이 올 때만 한 번 탭하시면 끝. 자녀 입장에서는 부모님
-          상태를 자녀 폰에서 보면 되니까 부모님은 평소처럼 사시면 됩니다.
-        </p>
-
-        <h2>마지막으로 — 부모님의 속도로</h2>
-        <p>
-          모든 부모님이 같은 속도로 익숙해지지 않으십니다. 어떤 분은 일주일이면 자유자재로 쓰시고,
-          어떤 분은 3개월이 걸리기도 합니다. <strong>부모님을 디지털 학습자가 아니라, 사랑하는
-          분</strong>으로 보고 함께 가는 게 핵심이에요. 알림이 가끔 빠지면 어떻습니까. 함께 챙기는
-          시스템 자체가 부모님을 더 안전하게 만들어 줍니다.
-        </p>
-
-        <p style={{ marginTop: 28, padding: '16px 20px', background: 'var(--teal-50, var(--cream-100))', borderRadius: 14, border: '1px solid var(--line-soft)', fontSize: 14 }}>
-          <strong>Bodacare에서 도와드릴 수 있는 것</strong>: 자녀가 보호자 등록 후 부모님이 한 번
-          수락으로 시작 / 약 카드에 보호자 이름 표시 / 부드러운 알림 + 1탭 기록.
-          <br/><a href="/" style={{ color: 'var(--teal-700)', fontWeight: 600 }}>앱 자세히 보기 →</a>
-        </p>
-
-        <RelatedPosts currentSlug="helping-parents-use-app" />
-      </div>
-    </BlogLayout>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// Router — reads data-post on <html>, falls back to index
-// ─────────────────────────────────────────────────────────────
-const POST_COMPONENTS = {
-  'remote-parent-meds': PostRemoteParentMeds,
-  'top-3-chronic-disease': PostTop3Chronic,
-  'reading-lab-results': PostReadingLabResults,
-  'inbody-explained': PostInBodyExplained,
-  'ai-and-your-health': PostAIAndYourHealth,
-  'helping-parents-use-app': PostHelpingParentsUseApp,
-};
-const postKey = document.documentElement.dataset.post;
-const RootComponent = (postKey && POST_COMPONENTS[postKey]) || BlogIndex;
-ReactDOM.createRoot(document.getElementById('root')).render(<RootComponent />);
+ReactDOM.createRoot(document.getElementById('root')).render(<BlogIndex />);

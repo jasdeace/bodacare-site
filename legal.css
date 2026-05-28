@@ -103,8 +103,29 @@
   margin: 36px 0 12px;
 }
 @media (min-width: 768px) { .bd-legal-body h2 { font-size: 22px; } }
+.bd-legal-body h3 {
+  font-size: 16.5px; font-weight: 700; letter-spacing: -0.01em;
+  color: var(--ink-900);
+  margin: 22px 0 8px;
+}
+@media (min-width: 768px) { .bd-legal-body h3 { font-size: 17.5px; } }
 .bd-legal-body h2:first-child { margin-top: 0; }
 .bd-legal-body p { margin: 0 0 14px; }
+/* Callout boxes (medical disclaimer, CTA) — authored as Markdown blockquotes
+   by the editor, rendered into <blockquote> by marked on the post page. */
+.bd-legal-body blockquote {
+  margin: 24px 0;
+  padding: 16px 20px;
+  background: var(--teal-50);
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-700);
+}
+.bd-legal-body blockquote p { margin: 0 0 6px; }
+.bd-legal-body blockquote p:last-child { margin-bottom: 0; }
+.bd-legal-body blockquote strong { color: var(--ink-900); font-weight: 700; }
 .bd-legal-body ul, .bd-legal-body ol { padding-left: 22px; margin: 0 0 16px; }
 .bd-legal-body li { margin-bottom: 8px; }
 .bd-legal-body li strong { color: var(--ink-900); font-weight: 600; }
