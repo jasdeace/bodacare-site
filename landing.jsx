@@ -63,7 +63,6 @@ function LandingNav() {
           <a href="#how">사용법</a>
         </div>
         <div className="bd-nav-cta">
-          <a href="#download" className="bd-btn bd-btn--ghost bd-hide-mobile">로그인</a>
           <a href="#download" className="bd-btn bd-btn--primary">앱 다운로드</a>
         </div>
       </div>
@@ -107,13 +106,10 @@ function Hero() {
               </div>
             </a>
           </div>
-          <div className="bd-hero-meta">
-            <Pulse /> 멀리 계신 부모님 · 함께 사는 가족 · 챙겨드릴 누구든
-          </div>
           <ul className="bd-hero-bullets">
-            <li><Check /> 보호자가 약을 등록하면 본인이 수락 — 안전하게 함께</li>
-            <li><Check /> 혈압·혈당·검사 결과까지 한 곳에서</li>
-            <li><Check /> AI가 검사지를 읽고 쉽게 설명해드려요</li>
+            <li><Check /> 보호자가 약 등록하면 본인이 수락 — 안전하게 함께</li>
+            <li><Check /> 혈압·혈당·검사·식단까지 한 곳에서</li>
+            <li><Check /> AI와 대화로 풀어가는 건강 — 검사지·영양·식단</li>
           </ul>
         </div>
 
@@ -133,11 +129,11 @@ function Hero() {
             </div>
             <div className="bd-chip bd-chip--2">
               <span className="bd-chip-dot bd-chip-dot--coral"/>
-              <span>가족이 복용 확인</span>
+              <span>가족이 함께 확인</span>
             </div>
             <div className="bd-chip bd-chip--3">
               <span className="bd-chip-dot bd-chip-dot--rose"/>
-              <span>혈압 120/80</span>
+              <span>AI 식단 코칭</span>
             </div>
           </div>
         </div>
@@ -206,16 +202,16 @@ function Features() {
           <div className="bd-bento-card bd-bento-card--lg" style={{ background: 'var(--paper)' }}>
             <div className="bd-bento-text">
               <span className="bd-feat-tag" style={{ background: 'var(--teal-100)', color: 'var(--teal-800)' }}>
-                <Ico.pill /> 함께 챙기는 복약
+                <Ico.pill /> 복약 동기화
               </span>
-              <h3 className="bd-h3">멀리 계셔도,<br/>함께 챙겨요</h3>
+              <h3 className="bd-h3">보호자가 등록,<br/>본인이 수락</h3>
               <p className="bd-feat-desc">
-                보호자가 약을 등록하면 본인이 한 번에 수락. 복용·놓침은 가족이 실시간으로 함께 확인해요.
+                가족이 약을 대신 등록해두면 본인이 한 번에 수락. 처방전을 카메라로 찍어 자동 입력도 가능해요.
               </p>
               <ul className="bd-feat-list">
                 <li><Check /> 보호자가 약 등록 → 본인이 수락</li>
-                <li><Check /> 복용·놓침을 가족이 실시간 확인</li>
-                <li><Check /> "약 복용 재촉하기"로 가볍게 챙김</li>
+                <li><Check /> 처방전 사진 한 장으로 약 정보 자동 입력</li>
+                <li><Check /> "약 복용 재촉하기"로 놓친 약 가볍게 챙김</li>
               </ul>
             </div>
             <div className="bd-bento-visual">
@@ -227,11 +223,11 @@ function Features() {
           <div id="ai" className="bd-bento-card bd-bento-card--ai" style={{ background: 'linear-gradient(160deg, #0E5C5A, #0F766E)' }}>
             <div className="bd-bento-text bd-bento-text--dark">
               <span className="bd-feat-tag" style={{ background: 'rgba(255,255,255,0.15)', color: 'white' }}>
-                <Ico.spark /> AI 건강 도우미
+                <Ico.spark /> AI 건강 대화
               </span>
-              <h3 className="bd-h3">검사 결과를<br/>대화로 이해해요</h3>
+              <h3 className="bd-h3">건강에 대한 모든 질문,<br/>대화로 풀어요</h3>
               <p className="bd-feat-desc" style={{ color: 'rgba(255,255,255,0.78)' }}>
-                건강검진 결과지를 사진으로 올리면 AI가 수치 하나하나를 쉽게 설명해 드려요. 궁금한 점은 바로 질문해 보세요.
+                건강검진 수치 해석부터 식단·영양 코칭, 평소 궁금한 건강 질문까지. 한 화면에서 대화하듯 AI가 짚어드려요.
               </p>
             </div>
             <div className="bd-bento-visual">
@@ -255,15 +251,15 @@ function Features() {
             </div>
           </div>
 
-          {/* Prescription scan */}
+          {/* Nutrition + Calorie */}
           <div className="bd-bento-card" style={{ background: 'var(--cream-100)' }}>
             <div className="bd-bento-text">
               <span className="bd-feat-tag" style={{ background: 'var(--coral-100)', color: '#A85A45' }}>
-                <Ico.cam /> 처방전 스캔
+                <Ico.cam /> 영양·식단
               </span>
-              <h3 className="bd-h3">사진 한 장으로<br/>약 정보 자동 입력</h3>
+              <h3 className="bd-h3">식단 사진 한 장,<br/>칼로리·영양 자동 계산</h3>
               <p className="bd-feat-desc">
-                처방전을 카메라로 찍기만 하면 약 이름, 용량, 복용 시간까지 알아서 채워 넣어요.
+                밥상 사진을 찍으면 AI가 칼로리·영양소를 분석. 목표에 맞춰 식단을 코칭해드려요.
               </p>
             </div>
             <div className="bd-bento-visual bd-bento-visual--small">
@@ -277,9 +273,9 @@ function Features() {
               <span className="bd-feat-tag" style={{ background: 'var(--sand-100)', color: 'var(--warn-500)' }}>
                 <Ico.share /> 케어 그룹
               </span>
-              <h3 className="bd-h3">멀리 있어도<br/>함께 챙겨요</h3>
+              <h3 className="bd-h3">여러 가족이,<br/>데이터별로 따로 공유</h3>
               <p className="bd-feat-desc">
-                부모님·자녀의 복약 현황을 가족이 함께 볼 수 있어요. 약을 빠뜨린 날엔 가벼운 알림으로 챙겨드려요.
+                자녀·배우자·형제 누구든 초대해서 함께 봐요. 약은 자녀에게, 식단은 배우자에게 — 보호자별로 공개 범위를 따로 설정할 수 있어요.
               </p>
               <div className="bd-care-avatars">
                 <div className="bd-avatar" style={{ background: 'var(--teal-700)' }}>김</div>
