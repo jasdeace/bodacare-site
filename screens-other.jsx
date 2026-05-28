@@ -498,4 +498,85 @@ function SettingRow({ icon, label, value }) {
   );
 }
 
-Object.assign(window, { MetricsScreen, MedicineEditScreen, AIScreen, ProfileScreen });
+// ─────────────────────────────────────────────────────────────
+// Nutrition / calorie tracking screen — landing nutrition card
+// ─────────────────────────────────────────────────────────────
+function NutritionScreen() {
+  return (
+    <div className="cl-screen">
+      <StatusBar time="13:42" />
+      <div style={{ padding: '8px 20px 6px', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <h1 style={{ fontFamily: 'var(--font-sans)', fontWeight: 400, fontSize: 28, margin: 0, letterSpacing: '-0.02em' }}>오늘의 식단</h1>
+        <button style={iconBtn}><Ico.cam /></button>
+      </div>
+
+      <div className="cl-scroll" style={{ padding: '12px 20px 16px' }}>
+        {/* Calorie summary */}
+        <div style={{
+          background: 'var(--paper)', borderRadius: 22,
+          border: '1px solid var(--line-soft)', padding: '18px 18px 16px',
+          marginBottom: 14,
+          display: 'flex', alignItems: 'center', gap: 18,
+        }}>
+          <Ring size={92} stroke={9} pct={62} color="var(--teal-700)" track="var(--cream-100)">
+            <div style={{ textAlign: 'center', lineHeight: 1 }}>
+              <div style={{ fontSize: 22, fontWeight: 700, color: 'var(--ink-900)', letterSpacing: '-0.02em' }} className="tabular">1,240</div>
+              <div style={{ fontSize: 10, color: 'var(--ink-500)', marginTop: 3, fontWeight: 600 }}>/ 2,000 kcal</div>
+            </div>
+          </Ring>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 13, color: 'var(--ink-500)', marginBottom: 6, fontWeight: 600 }}>목표까지</div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--teal-700)', marginBottom: 10, letterSpacing: '-0.01em' }} className="tabular">760 kcal</div>
+            <div style={{ display: 'flex', gap: 6, fontSize: 11, fontWeight: 600 }}>
+              <span style={{ padding: '4px 8px', borderRadius: 999, background: 'var(--teal-100)', color: 'var(--teal-800)' }}>탄 142g</span>
+              <span style={{ padding: '4px 8px', borderRadius: 999, background: 'var(--rose-100)', color: '#A24652' }}>단 58g</span>
+              <span style={{ padding: '4px 8px', borderRadius: 999, background: 'var(--coral-100)', color: '#A85A45' }}>지 42g</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Meal entries */}
+        {[
+          { time: '08:20', tint: 'var(--sand-100)', emoji: '🥣', name: '오트밀·바나나·우유', kcal: 320 },
+          { time: '12:40', tint: 'var(--coral-100)', emoji: '🍱', name: '현미밥·연어구이·나물', kcal: 620 },
+          { time: '15:30', tint: 'var(--teal-100)', emoji: '🍎', name: '사과 1개', kcal: 95 },
+        ].map((m) => (
+          <div key={m.time} style={{
+            background: 'var(--paper)', borderRadius: 18,
+            border: '1px solid var(--line-soft)',
+            padding: '12px 14px', marginBottom: 8,
+            display: 'flex', alignItems: 'center', gap: 12,
+          }}>
+            <div style={{
+              width: 44, height: 44, borderRadius: 12,
+              background: m.tint,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 22,
+            }}>{m.emoji}</div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 11, color: 'var(--ink-400)', fontWeight: 600, marginBottom: 2 }} className="tabular">{m.time}</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink-900)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{m.name}</div>
+            </div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--teal-700)' }} className="tabular">{m.kcal}</div>
+          </div>
+        ))}
+
+        {/* AI nudge */}
+        <div style={{
+          marginTop: 6,
+          background: 'linear-gradient(150deg, var(--teal-100), var(--cream-100))',
+          borderRadius: 16, padding: '12px 14px',
+          display: 'flex', alignItems: 'center', gap: 10,
+          border: '1px solid var(--teal-100)',
+        }}>
+          <span style={{ width: 28, height: 28, borderRadius: 9, background: 'var(--teal-700)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><Ico.spark /></span>
+          <div style={{ fontSize: 12.5, color: 'var(--ink-700)', lineHeight: 1.4 }}>저녁엔 <strong>단백질 70g</strong> 채우는 걸 추천해요.</div>
+        </div>
+      </div>
+
+      <TabBar active="ai" />
+    </div>
+  );
+}
+
+Object.assign(window, { MetricsScreen, MedicineEditScreen, AIScreen, ProfileScreen, NutritionScreen });

@@ -1,4 +1,4 @@
-/* global React, CLMark, CLHeaderLogo, HomeA, MetricsScreen, AIScreen, MedicineEditScreen, ProfileScreen, Ico */
+/* global React, CLMark, CLHeaderLogo, HomeA, MetricsScreen, AIScreen, MedicineEditScreen, ProfileScreen, NutritionScreen, Ico */
 // bodacare — marketing landing page sections
 
 // ─────────────────────────────────────────────────────────────
@@ -14,6 +14,7 @@ function MiniPhone({ children, scale = 1, width = 360, height = 760 }) {
     }}>
       <div style={{
         width, height,
+        boxSizing: 'border-box',
         background: 'var(--cream-50)',
         borderRadius: 38,
         border: '8px solid #0F2C2E',
@@ -263,7 +264,7 @@ function Features() {
               </p>
             </div>
             <div className="bd-bento-visual bd-bento-visual--small">
-              <MiniPhone scale={0.55}><MedicineEditScreen /></MiniPhone>
+              <MiniPhone scale={0.55}><NutritionScreen /></MiniPhone>
             </div>
           </div>
 
