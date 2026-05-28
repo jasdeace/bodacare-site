@@ -1,6 +1,15 @@
 /* global React, ReactDOM, CLMark */
 // bodacare — Blog (index + posts)
 // Each post HTML wrapper sets data-post on <html>.
+//
+// Index merges these hardcoded posts with editor-managed posts loaded from
+// Supabase (admin.bodacare.com → /blog). New posts go through the editor;
+// the six original posts below stay hardcoded so they keep their per-post
+// HTML wrappers (better SEO than the dynamic /blog-post.html?slug=… page).
+
+const SUPABASE_URL = 'https://wmzochdgnujalmgnvmku.supabase.co';
+const SUPABASE_ANON =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indtem9jaGRnbnVqYWxtZ252bWt1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2OTc1ODksImV4cCI6MjA5MzI3MzU4OX0.D4T9jlofOM7wqWZ0sf15jvFWom5L3jbACSDUn7MxkT0';
 
 const POSTS = {
   'remote-parent-meds': {
@@ -143,6 +152,58 @@ function RelatedPosts({ currentSlug }) {
 // Index
 // ─────────────────────────────────────────────────────────────
 function BlogIndex() {
+  // Hardcoded + DB posts, sorted by date descending. Hardcoded items use
+  // their per-post HTML wrappers (better SEO); DB items use the dynamic
+  // /blog-post.html?slug=… route. Date strings differ in shape, so we use
+  // sortable_at (epoch ms) computed below.
+  const [dbPosts, setDbPosts] = React.useState([]);
+  React.useEffect(() => {
+    fetch(
+      `${SUPABASE_URL}/rest/v1/blog_posts?published=eq.true&select=slug,title,excerpt,category,read_min,published_at&order=published_at.desc`,
+      {
+        headers: {
+          apikey: SUPABASE_ANON,
+          Authorization: `Bearer ${SUPABASE_ANON}`,
+        },
+      },
+    )
+      .then((r) => r.json())
+      .then((rows) => Array.isArray(rows) && setDbPosts(rows))
+      .catch(() => {});
+  }, []);
+
+  // Build a unified list. Hardcoded items have date as a Korean string
+  // ("2026년 5월 28일") — parse to epoch for sorting.
+  function parseKoDate(s) {
+    const m = s.match(/(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일/);
+    return m ? new Date(+m[1], +m[2] - 1, +m[3]).getTime() : 0;
+  }
+  const all = [
+    ...Object.entries(POSTS).map(([slug, p]) => ({
+      slug,
+      title: p.title,
+      excerpt: p.excerpt,
+      category: p.category,
+      readMin: p.readMin,
+      dateLabel: p.date,
+      href: `/blog-${slug}`,
+      sortAt: parseKoDate(p.date),
+    })),
+    ...dbPosts.map((p) => {
+      const d = p.published_at ? new Date(p.published_at) : new Date();
+      return {
+        slug: p.slug,
+        title: p.title,
+        excerpt: p.excerpt,
+        category: p.category,
+        readMin: p.read_min,
+        dateLabel: `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`,
+        href: `/blog-post.html?slug=${encodeURIComponent(p.slug)}`,
+        sortAt: d.getTime(),
+      };
+    }),
+  ].sort((a, b) => b.sortAt - a.sortAt);
+
   return (
     <BlogLayout>
       <div className="bd-legal-kicker">BLOG</div>
@@ -153,8 +214,8 @@ function BlogIndex() {
 
       <div className="bd-legal-body">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-          {Object.entries(POSTS).map(([slug, p]) => (
-            <a key={slug} href={`/blog-${slug}`} style={{
+          {all.map((p) => (
+            <a key={p.slug} href={p.href} style={{
               display: 'block', padding: '22px 24px',
               background: 'var(--cream-50)',
               border: '1px solid var(--line-soft)',
@@ -166,10 +227,9 @@ function BlogIndex() {
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--line-soft)'; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
               <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 8, fontSize: 12, color: 'var(--ink-500)' }}>
-                <span style={{ padding: '3px 10px', background: 'var(--teal-100)', color: 'var(--teal-800)', borderRadius: 999, fontWeight: 700, fontSize: 11 }}>{p.category}</span>
-                <span>{p.date}</span>
-                <span>·</span>
-                <span>{p.readMin}분</span>
+                {p.category && <span style={{ padding: '3px 10px', background: 'var(--teal-100)', color: 'var(--teal-800)', borderRadius: 999, fontWeight: 700, fontSize: 11 }}>{p.category}</span>}
+                <span>{p.dateLabel}</span>
+                {p.readMin && <><span>·</span><span>{p.readMin}분</span></>}
               </div>
               <h3 style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 8, lineHeight: 1.3 }}>{p.title}</h3>
               <p style={{ fontSize: 14, color: 'var(--ink-500)', lineHeight: 1.65 }}>{p.excerpt}</p>
