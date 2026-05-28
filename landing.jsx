@@ -617,7 +617,7 @@ function RecentPosts() {
         </div>
         <div className="bd-recent-grid">
           {posts.map((p) => (
-            <a key={p.slug} href={`/blog/${p.slug}`} className="bd-recent-card">
+            <a key={p.slug} href={`/blog-post.html?slug=${p.slug}`} className="bd-recent-card">
               <div className="bd-recent-meta">
                 <span className="bd-recent-tag">{p.category}</span>
                 <span className="bd-recent-date">{p.date}</span>
