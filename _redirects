@@ -1,19 +1,8 @@
-# Cloudflare Pages routing
+# Cloudflare routing.
 #
-# The six original blog posts moved from per-post HTML files into the
-# blog_posts table (rendered by /blog-post.html?slug=…). Redirect both the
-# old pretty (/blog/<slug>) and flat (/blog-<slug>) URLs to the dynamic page
-# with a 301 so existing links and search-index entries don't 404.
-/blog/remote-parent-meds       /blog-post.html?slug=remote-parent-meds        301
-/blog/top-3-chronic-disease    /blog-post.html?slug=top-3-chronic-disease     301
-/blog/reading-lab-results      /blog-post.html?slug=reading-lab-results       301
-/blog/inbody-explained         /blog-post.html?slug=inbody-explained          301
-/blog/ai-and-your-health       /blog-post.html?slug=ai-and-your-health        301
-/blog/helping-parents-use-app  /blog-post.html?slug=helping-parents-use-app   301
-
-/blog-remote-parent-meds       /blog-post.html?slug=remote-parent-meds        301
-/blog-top-3-chronic-disease    /blog-post.html?slug=top-3-chronic-disease     301
-/blog-reading-lab-results      /blog-post.html?slug=reading-lab-results       301
-/blog-inbody-explained         /blog-post.html?slug=inbody-explained          301
-/blog-ai-and-your-health       /blog-post.html?slug=ai-and-your-health        301
-/blog-helping-parents-use-app  /blog-post.html?slug=helping-parents-use-app   301
+# Blog routing is owned by the Worker (worker.js): it SSRs /blog/<slug> and
+# 301s legacy /blog-<slug> → /blog/<slug>. Those rules are intentionally NOT
+# here — the static-assets/_redirects layer runs BEFORE the Worker, so a rule
+# here would shadow the Worker and prevent server-side rendering.
+#
+# (No active redirects at the moment. Add non-blog redirects below if needed.)

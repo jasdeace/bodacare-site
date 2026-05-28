@@ -1,0 +1,7 @@
+# Keep these out of the public static-asset bundle (served by the ASSETS
+# binding). The Worker entry + its config should not be web-fetchable.
+worker.js
+wrangler.jsonc
+.assetsignore
+.gitignore
+README.md

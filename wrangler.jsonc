@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bodacare-site",
+  "main": "worker.js",
+  "compatibility_date": "2026-05-28",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  // Static site served from the repo root; the Worker (worker.js) intercepts
+  // /blog/<slug> for SSR and falls through to ASSETS for everything else.
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS"
+  }
+}
