@@ -92,19 +92,19 @@ function PressDoc() {
         <p style={{ color: 'var(--ink-500)', marginTop: -8, fontSize: 14 }}>아래 문구를 필요한 길이로 골라 인용해 주세요.</p>
 
         <CopyBox label="짧은 한 줄 (트윗·짧은 캡션용)">
-          멀리 계신 부모님의 건강을, 가족이 함께 챙기는 한국 케어 앱.
+          멀리 계신 부모님의 건강을, 가족이 함께 챙기는 케어 앱.
         </CopyBox>
 
         <CopyBox label="제목·헤드라인용">
-          Bodacare — 부모님 복약·혈압·검사·식단을 가족이 함께 챙기는 한국 케어 앱
+          Bodacare — 부모님 복약·혈압·검사·식단을 가족이 함께 챙기는 케어 앱
         </CopyBox>
 
         <CopyBox label="엘리베이터 피치">
-          한국은 곧 초고령 사회. 부모님의 약·혈압·검사 결과·식단을 멀리서도 옆에서 본 듯 챙길 수 있게 만든 가족 케어 앱입니다. 보호자가 약을 등록하면 본인이 한 번에 수락하는 흐름, AI와 대화로 검사지를 풀어주는 기능, 가족별 공개 범위 설정 — 한 사람이 아니라 한 관계를 위한 도구입니다.
+          우리나라는 곧 초고령 사회. 부모님의 약·혈압·검사 결과·식단을 멀리서도 옆에서 본 듯 챙길 수 있게 만든 가족 케어 앱입니다. 보호자가 약을 등록하면 본인이 한 번에 수락하는 흐름, AI와 대화로 검사지를 풀어주는 기능, 가족별 공개 범위 설정 — 한 사람이 아니라 한 관계를 위한 도구입니다.
         </CopyBox>
 
         <CopyBox label="상세 소개 (보도자료용 한 문단)">
-          Bodacare는 멀리 계신 부모님의 건강을 가족이 함께 챙길 수 있게 돕는 한국 가족 케어 앱입니다. 복약 알림, 혈압·혈당 추적, 검사 결과 OCR + AI 해석, 인바디 결과 관리, AI 식단 분석을 하나의 앱에 모았고, 가족별로 공개 범위(약·혈압·식단)를 따로 설정할 수 있어 데이터의 통제권은 본인에게 있습니다. 식품의약품안전처(MFDS) 공식 약품 데이터와 Naver SENS·Apple·Google·Kakao 인증을 기반으로, 한국에서 만들고 한국 가족에게 맞춘 케어 도구입니다.
+          Bodacare는 멀리 계신 부모님의 건강을 가족이 함께 챙길 수 있게 돕는 가족 케어 앱입니다. 복약 알림, 혈압·혈당 추적, 검사 결과 OCR + AI 해석, 인바디 결과 관리, AI 식단 분석을 하나의 앱에 모았고, 가족별로 공개 범위(약·혈압·식단)를 따로 설정할 수 있어 데이터의 통제권은 본인에게 있습니다. 식품의약품안전처(MFDS) 공식 약품 데이터와 Naver SENS·카카오·애플·구글 인증을 기반으로, 매일 쓰는 환경에 맞춰 만들었습니다.
         </CopyBox>
 
         <h2>핵심 기능 (요약)</h2>
@@ -119,12 +119,11 @@ function PressDoc() {
         <h2>팩트 시트</h2>
         <ul>
           <li><strong>제품명</strong>: Bodacare (보다케어)</li>
-          <li><strong>창업</strong>: 2025년</li>
-          <li><strong>위치</strong>: 대한민국</li>
-          <li><strong>운영자</strong>: Won Seok Chang</li>
+          <li><strong>설립</strong>: 2026년</li>
+          <li><strong>위치</strong>: 서울</li>
           <li><strong>플랫폼</strong>: iOS · Android</li>
           <li><strong>요금제</strong>: 핵심 기능 무료 · AI 분석은 토큰 단위 또는 프리미엄 구독</li>
-          <li><strong>대상 시장</strong>: 한국 (초고령 사회 진입 가족)</li>
+          <li><strong>대상</strong>: 초고령 사회 진입기의 가족 (자녀·부모님)</li>
           <li><strong>웹사이트</strong>: <a href="https://bodacare.com">bodacare.com</a></li>
           <li><strong>문의</strong>: <a href="mailto:admin@bodacare.com">admin@bodacare.com</a></li>
         </ul>
@@ -182,7 +181,7 @@ function PressDoc() {
 
         <h2>인터뷰·취재 문의</h2>
         <p>
-          제품 데모, 창업자 인터뷰, 한국 디지털 헬스·고령화 관련 코멘트 요청은
+          제품 데모, 창업자 인터뷰, 디지털 헬스·고령화 관련 코멘트 요청은
           <a href="mailto:admin@bodacare.com?subject=취재 요청"> admin@bodacare.com</a> 으로 보내주세요.
           가능한 빠르게 회신해 드립니다. 영어 인터뷰도 가능합니다.
         </p>

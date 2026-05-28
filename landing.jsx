@@ -336,7 +336,7 @@ function Story() {
           <span className="bd-kicker">왜 만들었나요</span>
           <h2 className="bd-h2">건강은 혼자 챙기는 것이<br/><em>아닙니다</em></h2>
           <p className="bd-section-lead">
-            한국은 곧 초고령 사회입니다. 부모님 약을 멀리서 챙기고, 검사 결과지를 함께 해석하고,<br className="bd-hide-mobile"/>
+            우리나라는 곧 초고령 사회입니다. 부모님 약을 멀리서 챙기고, 검사 결과지를 함께 해석하고,<br className="bd-hide-mobile"/>
             식단을 같이 고민하는 일 — 그 모든 게 따로 흩어져 있다는 점에서 Bodacare가 시작되었어요.
           </p>
         </div>
@@ -463,7 +463,7 @@ function Trust() {
           <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.6"/>
         </svg>
       ),
-      title: '한국 PIPA 기준 운영',
+      title: '개인정보보호법 기준',
       desc: '민감정보(건강 정보)는 일반 개인정보와 분리해 별도 동의를 받습니다. 회원 탈퇴 시 모든 데이터가 즉시 삭제돼요.',
     },
   ];
@@ -597,8 +597,8 @@ function RecentPosts() {
       slug: 'top-3-chronic-disease',
       category: '건강 지식',
       date: '5월 27일',
-      title: '고혈압·당뇨·고지혈증, 한국인 3대 만성질환',
-      excerpt: '한국 65세 이상의 80%가 보유한 만성질환. 가족이 함께 관리할 때 결과가 달라집니다.',
+      title: '고혈압·당뇨·고지혈증, 우리나라 3대 만성질환',
+      excerpt: '65세 이상의 80%가 보유한 만성질환. 가족이 함께 관리할 때 결과가 달라집니다.',
     },
     {
       slug: 'reading-lab-results',
