@@ -1,4 +1,4 @@
-/* global React, CLMark, CLHeaderLogo, HomeA, MetricsScreen, AIScreen, MedicineEditScreen, ProfileScreen, NutritionScreen, Ico */
+/* global React, CLMark, CLHeaderLogo, HomeA, MetricsScreen, AIScreen, MedicineEditScreen, ProfileScreen, NutritionScreen, CareGroupScreen, Ico */
 // bodacare — marketing landing page sections
 
 // ─────────────────────────────────────────────────────────────
@@ -292,7 +292,7 @@ function Features() {
               </div>
             </div>
             <div className="bd-bento-visual">
-              <MiniPhone scale={0.62}><ProfileScreen /></MiniPhone>
+              <MiniPhone scale={0.62}><CareGroupScreen /></MiniPhone>
             </div>
           </div>
         </div>

@@ -30,7 +30,7 @@ function HomeA() {
       </>} />
       <div className="cl-scroll" style={{ padding: '0 20px 16px' }}>
         {/* Greeting */}
-        <div style={{ paddingTop: 12, paddingBottom: 20 }}>
+        <div style={{ paddingTop: 12, paddingBottom: 16 }}>
           <div style={{ fontSize: 13, color: 'var(--ink-500)', letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 600, marginBottom: 8 }}>
             5월 20일 · 수요일
           </div>
@@ -38,6 +38,33 @@ function HomeA() {
             좋은 아침이에요,<br/>
             <span style={{  color: 'var(--teal-700)' }}>지수</span>님.
           </h1>
+        </div>
+
+        {/* Pending-med banner: caregiver-added med awaiting taker's accept */}
+        <div style={{
+          background: 'var(--sand-100)',
+          border: '1px solid var(--sand-200)',
+          borderRadius: 16,
+          padding: '12px 14px',
+          marginBottom: 16,
+          display: 'flex', alignItems: 'center', gap: 12,
+        }}>
+          <span style={{
+            width: 36, height: 36, borderRadius: '50%',
+            background: 'var(--coral-300)', color: 'white',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 13, fontWeight: 700, flexShrink: 0,
+          }}>딸</span>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 11.5, color: 'var(--ink-500)', fontWeight: 600 }}>딸이 약을 추가했어요</div>
+            <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink-900)', marginTop: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>듀카브정 60mg · 아침 9시</div>
+          </div>
+          <button style={{
+            padding: '7px 14px', borderRadius: 999,
+            background: 'var(--teal-700)', color: 'white',
+            border: 'none', fontSize: 12.5, fontWeight: 700,
+            flexShrink: 0,
+          }}>수락</button>
         </div>
 
         {/* Today's progress hero */}
