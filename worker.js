@@ -169,7 +169,7 @@ async function renderPost(slug) {
   let rows = [];
   try {
     const r = await fetch(
-      `${SUPABASE_URL}/rest/v1/blog_posts?slug=eq.${encodeURIComponent(slug)}&published=eq.true&select=slug,title,excerpt,category,body_md,read_min,published_at&limit=1`,
+      `${SUPABASE_URL}/rest/v1/blog_posts?slug=eq.${encodeURIComponent(slug)}&published=eq.true&select=slug,title,excerpt,category,body_md,read_min,published_at,cover_image_url,cover_credit&limit=1`,
       { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } },
     );
     if (r.ok) rows = await r.json();
@@ -186,9 +186,18 @@ async function renderPost(slug) {
     post.read_min ? `<span><strong>읽는 시간</strong> · 약 ${post.read_min}분</span>` : '',
   ].filter(Boolean).join('');
 
-  const bodyHtml = `${post.category ? `<div class="bd-legal-kicker">${escapeHtml(post.category)}</div>` : ''}
+  const cover = post.cover_image_url
+    ? `<img src="${escapeAttr(post.cover_image_url)}" alt="${escapeAttr(post.title)}" loading="eager"
+         style="width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:16px;margin-bottom:20px" />`
+    : '';
+  const coverCredit = post.cover_credit
+    ? `<div style="font-size:11px;color:var(--ink-400);margin-top:-12px;margin-bottom:16px;text-align:right">${escapeHtml(post.cover_credit)}</div>`
+    : '';
+
+  const bodyHtml = `${cover}${post.category ? `<div class="bd-legal-kicker">${escapeHtml(post.category)}</div>` : ''}
 <h1 class="bd-legal-title">${escapeHtml(post.title)}</h1>
 <div class="bd-legal-meta">${meta}</div>
+${coverCredit}
 <div class="bd-legal-body">
 ${renderMarkdown(post.body_md || '')}
 <div style="margin-top:40px;padding-top:28px;border-top:1px solid var(--line-soft);text-align:center">

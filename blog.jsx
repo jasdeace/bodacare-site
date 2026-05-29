@@ -57,7 +57,7 @@ function BlogIndex() {
 
   React.useEffect(() => {
     fetch(
-      `${SUPABASE_URL}/rest/v1/blog_posts?published=eq.true&select=slug,title,excerpt,category,read_min,published_at&order=published_at.desc`,
+      `${SUPABASE_URL}/rest/v1/blog_posts?published=eq.true&select=slug,title,excerpt,category,read_min,published_at,cover_image_url&order=published_at.desc`,
       {
         headers: {
           apikey: SUPABASE_ANON,
@@ -95,7 +95,7 @@ function BlogIndex() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
             {posts.map((p) => (
               <a key={p.slug} href={`/blog/${encodeURIComponent(p.slug)}`} style={{
-                display: 'block', padding: '22px 24px',
+                display: 'block', overflow: 'hidden',
                 background: 'var(--cream-50)',
                 border: '1px solid var(--line-soft)',
                 borderRadius: 18,
@@ -105,13 +105,19 @@ function BlogIndex() {
               onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--teal-300)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--line-soft)'; e.currentTarget.style.transform = 'translateY(0)'; }}
               >
-                <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 8, fontSize: 12, color: 'var(--ink-500)' }}>
-                  {p.category && <span style={{ padding: '3px 10px', background: 'var(--teal-100)', color: 'var(--teal-800)', borderRadius: 999, fontWeight: 700, fontSize: 11 }}>{p.category}</span>}
-                  <span>{formatKoDate(p.published_at)}</span>
-                  {p.read_min && <><span>·</span><span>{p.read_min}분</span></>}
+                {p.cover_image_url && (
+                  <img src={p.cover_image_url} alt={p.title} loading="lazy"
+                    style={{ width: '100%', height: 168, objectFit: 'cover', display: 'block' }} />
+                )}
+                <div style={{ padding: '20px 24px' }}>
+                  <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 8, fontSize: 12, color: 'var(--ink-500)' }}>
+                    {p.category && <span style={{ padding: '3px 10px', background: 'var(--teal-100)', color: 'var(--teal-800)', borderRadius: 999, fontWeight: 700, fontSize: 11 }}>{p.category}</span>}
+                    <span>{formatKoDate(p.published_at)}</span>
+                    {p.read_min && <><span>·</span><span>{p.read_min}분</span></>}
+                  </div>
+                  <h3 style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 8, lineHeight: 1.3 }}>{p.title}</h3>
+                  {p.excerpt && <p style={{ fontSize: 14, color: 'var(--ink-500)', lineHeight: 1.65 }}>{p.excerpt}</p>}
                 </div>
-                <h3 style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 8, lineHeight: 1.3 }}>{p.title}</h3>
-                {p.excerpt && <p style={{ fontSize: 14, color: 'var(--ink-500)', lineHeight: 1.65 }}>{p.excerpt}</p>}
               </a>
             ))}
           </div>
